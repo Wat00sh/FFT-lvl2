@@ -1,0 +1,338 @@
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s 			page 1
+
+
+   1              		.file	"fstat.c"
+   2              		.option nopic
+   3              		.attribute arch, "rv32i2p0_m2p0_a2p0_c2p0"
+   4              		.attribute unaligned_access, 0
+   5              		.attribute stack_align, 16
+   6              		.text
+   7              	.Ltext0:
+   8              		.cfi_sections	.debug_frame
+   9              		.section	.text._fstat,"ax",@progbits
+  10              		.align	1
+  11              		.globl	_fstat
+  13              	_fstat:
+  14              	.LFB1:
+  15              		.file 1 "../../firmware/RISCV/stubs/fstat.c"
+   1:../../firmware/RISCV/stubs/fstat.c **** /* See LICENSE of license details. */
+   2:../../firmware/RISCV/stubs/fstat.c **** 
+   3:../../firmware/RISCV/stubs/fstat.c **** #include <errno.h>
+   4:../../firmware/RISCV/stubs/fstat.c **** #include <unistd.h>
+   5:../../firmware/RISCV/stubs/fstat.c **** #include <sys/stat.h>
+   6:../../firmware/RISCV/stubs/fstat.c **** #include "stub.h"
+   7:../../firmware/RISCV/stubs/fstat.c **** 
+   8:../../firmware/RISCV/stubs/fstat.c **** int _fstat(int fd, struct stat* st)
+   9:../../firmware/RISCV/stubs/fstat.c **** {
+  16              		.loc 1 9 1
+  17              		.cfi_startproc
+  18              	.LVL0:
+  10:../../firmware/RISCV/stubs/fstat.c ****   if (isatty(fd)) {
+  19              		.loc 1 10 3
+   9:../../firmware/RISCV/stubs/fstat.c ****   if (isatty(fd)) {
+  20              		.loc 1 9 1 is_stmt 0
+  21 0000 4111     		addi	sp,sp,-16
+  22              	.LCFI0:
+  23              		.cfi_def_cfa_offset 16
+  24 0002 22C4     		sw	s0,8(sp)
+  25 0004 06C6     		sw	ra,12(sp)
+  26              		.cfi_offset 8, -8
+  27              		.cfi_offset 1, -4
+   9:../../firmware/RISCV/stubs/fstat.c ****   if (isatty(fd)) {
+  28              		.loc 1 9 1
+  29 0006 2E84     		mv	s0,a1
+  30              		.loc 1 10 7
+  31 0008 97000000 		call	isatty
+  31      E7800000 
+  32              	.LVL1:
+  33              		.loc 1 10 6
+  34 0010 01C9     		beq	a0,zero,.L3
+  11:../../firmware/RISCV/stubs/fstat.c ****     st->st_mode = S_IFCHR;
+  35              		.loc 1 11 5 is_stmt 1
+  36              		.loc 1 11 17 is_stmt 0
+  37 0012 8967     		li	a5,8192
+  38 0014 5CC0     		sw	a5,4(s0)
+  12:../../firmware/RISCV/stubs/fstat.c ****     return 0;
+  39              		.loc 1 12 5 is_stmt 1
+  40              		.loc 1 12 12 is_stmt 0
+  41 0016 0145     		li	a0,0
+  42              	.L1:
+  13:../../firmware/RISCV/stubs/fstat.c ****   }
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s 			page 2
+
+
+  14:../../firmware/RISCV/stubs/fstat.c **** 
+  15:../../firmware/RISCV/stubs/fstat.c ****   return _stub(EBADF);
+  16:../../firmware/RISCV/stubs/fstat.c **** }
+  43              		.loc 1 16 1
+  44 0018 B240     		lw	ra,12(sp)
+  45              		.cfi_remember_state
+  46              		.cfi_restore 1
+  47 001a 2244     		lw	s0,8(sp)
+  48              		.cfi_restore 8
+  49              	.LVL2:
+  50 001c 4101     		addi	sp,sp,16
+  51              	.LCFI1:
+  52              		.cfi_def_cfa_offset 0
+  53 001e 8280     		jr	ra
+  54              	.LVL3:
+  55              	.L3:
+  56              	.LCFI2:
+  57              		.cfi_restore_state
+  15:../../firmware/RISCV/stubs/fstat.c **** }
+  58              		.loc 1 15 10
+  59 0020 7D55     		li	a0,-1
+  60 0022 DDBF     		j	.L1
+  61              		.cfi_endproc
+  62              	.LFE1:
+  64              		.text
+  65              	.Letext0:
+  66              		.file 2 "c:\\users\\elias\\desktop\\fft\\projektet\\toolchain-gd32v-win\\compiler\\lib\\gcc\\riscv
+  67              		.file 3 "c:\\users\\elias\\desktop\\fft\\projektet\\toolchain-gd32v-win\\compiler\\riscv64-unknown
+  68              		.file 4 "c:\\users\\elias\\desktop\\fft\\projektet\\toolchain-gd32v-win\\compiler\\riscv64-unknown
+  69              		.file 5 "c:\\users\\elias\\desktop\\fft\\projektet\\toolchain-gd32v-win\\compiler\\riscv64-unknown
+  70              		.file 6 "c:\\users\\elias\\desktop\\fft\\projektet\\toolchain-gd32v-win\\compiler\\riscv64-unknown
+  71              		.file 7 "c:\\users\\elias\\desktop\\fft\\projektet\\toolchain-gd32v-win\\compiler\\riscv64-unknown
+  72              		.file 8 "c:\\users\\elias\\desktop\\fft\\projektet\\toolchain-gd32v-win\\compiler\\riscv64-unknown
+  73              		.file 9 "c:\\users\\elias\\desktop\\fft\\projektet\\toolchain-gd32v-win\\compiler\\riscv64-unknown
+  74              		.file 10 "c:\\users\\elias\\desktop\\fft\\projektet\\toolchain-gd32v-win\\compiler\\riscv64-unknow
+  75              		.file 11 "c:\\users\\elias\\desktop\\fft\\projektet\\toolchain-gd32v-win\\compiler\\riscv64-unknow
+  76              		.file 12 "c:\\users\\elias\\desktop\\fft\\projektet\\toolchain-gd32v-win\\compiler\\riscv64-unknow
+  77              		.file 13 "../../firmware/RISCV/stubs/stub.h"
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s 			page 3
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 fstat.c
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:13     .text._fstat:0000000000000000 _fstat
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:17     .text._fstat:0000000000000000 .L0 
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:19     .text._fstat:0000000000000000 .L0 
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:20     .text._fstat:0000000000000000 .L0 
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:21     .text._fstat:0000000000000000 .L0 
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:23     .text._fstat:0000000000000002 .L0 
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:26     .text._fstat:0000000000000006 .L0 
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:27     .text._fstat:0000000000000006 .L0 
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:29     .text._fstat:0000000000000006 .L0 
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:31     .text._fstat:0000000000000008 .L0 
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:34     .text._fstat:0000000000000010 .L0 
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:36     .text._fstat:0000000000000012 .L0 
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:37     .text._fstat:0000000000000012 .L0 
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:40     .text._fstat:0000000000000016 .L0 
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:41     .text._fstat:0000000000000016 .L0 
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:44     .text._fstat:0000000000000018 .L0 
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:45     .text._fstat:000000000000001a .L0 
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:46     .text._fstat:000000000000001a .L0 
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:48     .text._fstat:000000000000001c .L0 
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:52     .text._fstat:000000000000001e .L0 
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:57     .text._fstat:0000000000000020 .L0 
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:59     .text._fstat:0000000000000020 .L0 
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:61     .text._fstat:0000000000000024 .L0 
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:64     .text._fstat:0000000000000024 .L0 
+                     .debug_frame:0000000000000000 .L0 
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:55     .text._fstat:0000000000000020 .L3
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:42     .text._fstat:0000000000000018 .L1
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:1934   .debug_abbrev:0000000000000000 .Ldebug_abbrev0
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2740   .debug_str:00000000000003e1 .LASF170
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2634   .debug_str:00000000000001e8 .LASF171
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2552   .debug_str:000000000000001c .LASF172
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2538   .debug_ranges:0000000000000000 .Ldebug_ranges0
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2544   .debug_line:0000000000000000 .Ldebug_line0
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2678   .debug_str:00000000000002cf .LASF0
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2598   .debug_str:0000000000000148 .LASF1
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2734   .debug_str:00000000000003c7 .LASF2
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2714   .debug_str:0000000000000379 .LASF8
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2600   .debug_str:0000000000000156 .LASF3
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2762   .debug_str:00000000000004bb .LASF4
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2770   .debug_str:00000000000004de .LASF5
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2700   .debug_str:000000000000032e .LASF6
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2620   .debug_str:00000000000001af .LASF7
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2654   .debug_str:0000000000000265 .LASF9
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2688   .debug_str:00000000000002fc .LASF10
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2576   .debug_str:00000000000000ca .LASF11
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2588   .debug_str:0000000000000114 .LASF12
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2618   .debug_str:00000000000001a4 .LASF13
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2746   .debug_str:000000000000046c .LASF14
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2748   .debug_str:0000000000000478 .LASF15
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2666   .debug_str:000000000000029e .LASF16
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2838   .debug_str:0000000000000609 .LASF17
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2550   .debug_str:0000000000000014 .LASF18
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2810   .debug_str:000000000000059c .LASF19
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2604   .debug_str:0000000000000168 .LASF20
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2548   .debug_str:000000000000000c .LASF21
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s 			page 4
+
+
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2822   .debug_str:00000000000005cc .LASF22
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2864   .debug_str:0000000000000684 .LASF23
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2710   .debug_str:000000000000036b .LASF24
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2680   .debug_str:00000000000002dc .LASF25
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2814   .debug_str:00000000000005aa .LASF26
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2816   .debug_str:00000000000005b2 .LASF27
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2782   .debug_str:0000000000000511 .LASF28
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2892   .debug_str:0000000000000701 .LASF29
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2850   .debug_str:000000000000063a .LASF30
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2758   .debug_str:00000000000004a0 .LASF31
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2658   .debug_str:0000000000000276 .LASF32
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2662   .debug_str:0000000000000287 .LASF37
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2840   .debug_str:0000000000000611 .LASF33
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2806   .debug_str:000000000000058d .LASF34
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2656   .debug_str:0000000000000270 .LASF35
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2858   .debug_str:000000000000066f .LASF36
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2676   .debug_str:00000000000002ca .LASF38
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2594   .debug_str:000000000000013a .LASF39
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2832   .debug_str:00000000000005f3 .LASF40
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2608   .debug_str:0000000000000177 .LASF41
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2896   .debug_str:0000000000000714 .LASF42
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2742   .debug_str:000000000000045b .LASF43
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2728   .debug_str:00000000000003ad .LASF44
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2860   .debug_str:0000000000000674 .LASF45
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2772   .debug_str:00000000000004e8 .LASF46
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2876   .debug_str:00000000000006b9 .LASF47
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2612   .debug_str:0000000000000186 .LASF48
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2648   .debug_str:0000000000000252 .LASF49
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2546   .debug_str:0000000000000000 .LASF50
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2846   .debug_str:000000000000062c .LASF51
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2626   .debug_str:00000000000001c9 .LASF52
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2744   .debug_str:0000000000000464 .LASF53
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2798   .debug_str:000000000000055d .LASF54
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2650   .debug_str:000000000000025a .LASF55
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2774   .debug_str:00000000000004f2 .LASF56
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2606   .debug_str:0000000000000171 .LASF57
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2554   .debug_str:0000000000000064 .LASF58
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2784   .debug_str:000000000000051c .LASF59
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2624   .debug_str:00000000000001c2 .LASF60
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2690   .debug_str:000000000000030e .LASF61
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2580   .debug_str:00000000000000eb .LASF62
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2614   .debug_str:0000000000000194 .LASF63
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2668   .debug_str:00000000000002a6 .LASF64
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2726   .debug_str:00000000000003a6 .LASF65
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2818   .debug_str:00000000000005ba .LASF66
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2880   .debug_str:00000000000006d3 .LASF67
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2602   .debug_str:0000000000000162 .LASF68
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2872   .debug_str:00000000000006ab .LASF69
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2632   .debug_str:00000000000001df .LASF70
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2642   .debug_str:000000000000022b .LASF71
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2570   .debug_str:00000000000000a4 .LASF72
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2716   .debug_str:0000000000000380 .LASF73
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2788   .debug_str:000000000000052e .LASF74
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2720   .debug_str:000000000000038d .LASF75
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2808   .debug_str:0000000000000595 .LASF76
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2826   .debug_str:00000000000005dd .LASF77
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2628   .debug_str:00000000000001d1 .LASF78
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s 			page 5
+
+
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2682   .debug_str:00000000000002e3 .LASF79
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2660   .debug_str:000000000000027f .LASF80
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2796   .debug_str:0000000000000558 .LASF81
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2562   .debug_str:0000000000000081 .LASF82
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2804   .debug_str:0000000000000574 .LASF83
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2800   .debug_str:0000000000000562 .LASF84
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2636   .debug_str:000000000000020b .LASF85
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2802   .debug_str:000000000000056a .LASF86
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2708   .debug_str:0000000000000363 .LASF87
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2670   .debug_str:00000000000002ac .LASF88
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2890   .debug_str:00000000000006fc .LASF89
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2754   .debug_str:000000000000048c .LASF90
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2686   .debug_str:00000000000002f4 .LASF91
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2640   .debug_str:0000000000000223 .LASF92
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2764   .debug_str:00000000000004c9 .LASF93
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2702   .debug_str:0000000000000341 .LASF94
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2868   .debug_str:0000000000000697 .LASF95
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2616   .debug_str:000000000000019c .LASF96
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2610   .debug_str:0000000000000181 .LASF97
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2828   .debug_str:00000000000005e4 .LASF98
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2780   .debug_str:000000000000050a .LASF99
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2862   .debug_str:000000000000067e .LASF100
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2696   .debug_str:0000000000000321 .LASF101
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2778   .debug_str:0000000000000504 .LASF102
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2558   .debug_str:0000000000000072 .LASF103
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2812   .debug_str:00000000000005a4 .LASF104
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2836   .debug_str:0000000000000603 .LASF105
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2848   .debug_str:0000000000000635 .LASF106
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2856   .debug_str:0000000000000662 .LASF107
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2842   .debug_str:0000000000000617 .LASF108
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2706   .debug_str:0000000000000356 .LASF109
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2878   .debug_str:00000000000006c4 .LASF110
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2664   .debug_str:000000000000028f .LASF111
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2790   .debug_str:0000000000000537 .LASF112
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2882   .debug_str:00000000000006da .LASF113
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2794   .debug_str:000000000000054b .LASF114
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2888   .debug_str:00000000000006ee .LASF115
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2592   .debug_str:000000000000012c .LASF116
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2866   .debug_str:000000000000068d .LASF117
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2704   .debug_str:000000000000034a .LASF118
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2852   .debug_str:0000000000000642 .LASF119
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2646   .debug_str:0000000000000244 .LASF120
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2586   .debug_str:0000000000000105 .LASF121
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2644   .debug_str:0000000000000233 .LASF122
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2572   .debug_str:00000000000000aa .LASF123
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2574   .debug_str:00000000000000b9 .LASF124
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2768   .debug_str:00000000000004d5 .LASF125
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2738   .debug_str:00000000000003da .LASF126
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2730   .debug_str:00000000000003b7 .LASF127
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2874   .debug_str:00000000000006b1 .LASF128
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2582   .debug_str:00000000000000f4 .LASF173
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2820   .debug_str:00000000000005c0 .LASF129
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2854   .debug_str:000000000000064f .LASF130
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2638   .debug_str:0000000000000216 .LASF131
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2786   .debug_str:0000000000000524 .LASF132
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2752   .debug_str:0000000000000485 .LASF133
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2684   .debug_str:00000000000002eb .LASF134
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s 			page 6
+
+
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2870   .debug_str:00000000000006a1 .LASF135
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2898   .debug_str:000000000000071e .LASF136
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2692   .debug_str:0000000000000314 .LASF137
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2750   .debug_str:000000000000047f .LASF138
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2698   .debug_str:0000000000000328 .LASF139
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2652   .debug_str:000000000000025f .LASF140
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2560   .debug_str:000000000000007a .LASF141
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2556   .debug_str:000000000000006a .LASF142
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2712   .debug_str:0000000000000371 .LASF143
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2732   .debug_str:00000000000003c0 .LASF144
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2736   .debug_str:00000000000003d3 .LASF145
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2834   .debug_str:00000000000005fc .LASF146
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2884   .debug_str:00000000000006df .LASF147
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2724   .debug_str:000000000000039d .LASF148
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2756   .debug_str:0000000000000496 .LASF149
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2564   .debug_str:000000000000008c .LASF150
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2590   .debug_str:0000000000000124 .LASF151
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2596   .debug_str:0000000000000143 .LASF152
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2566   .debug_str:0000000000000096 .LASF153
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2766   .debug_str:00000000000004ce .LASF154
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2844   .debug_str:0000000000000624 .LASF155
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2760   .debug_str:00000000000004b2 .LASF156
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2694   .debug_str:000000000000031a .LASF157
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2568   .debug_str:000000000000009d .LASF158
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2886   .debug_str:00000000000006e6 .LASF159
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2722   .debug_str:0000000000000395 .LASF160
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2824   .debug_str:00000000000005d4 .LASF161
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2672   .debug_str:00000000000002b6 .LASF162
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2894   .debug_str:000000000000070b .LASF163
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2674   .debug_str:00000000000002c0 .LASF164
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2792   .debug_str:0000000000000542 .LASF165
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2622   .debug_str:00000000000001b8 .LASF166
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2776   .debug_str:00000000000004f9 .LASF167
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2578   .debug_str:00000000000000e1 .LASF168
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2830   .debug_str:00000000000005e9 .LASF169
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2630   .debug_str:00000000000001d8 .LASF174
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:14     .text._fstat:0000000000000000 .LFB1
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:62     .text._fstat:0000000000000024 .LFE1
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2466   .debug_loc:0000000000000000 .LLST0
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2489   .debug_loc:0000000000000038 .LLST1
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2503   .debug_loc:0000000000000059 .LLST2
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:32     .text._fstat:0000000000000010 .LVL1
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2584   .debug_str:00000000000000ff .LASF175
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:2718   .debug_str:0000000000000386 .LASF176
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:22     .text._fstat:0000000000000002 .LCFI0
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:51     .text._fstat:000000000000001e .LCFI1
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:56     .text._fstat:0000000000000020 .LCFI2
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:18     .text._fstat:0000000000000000 .LVL0
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:49     .text._fstat:000000000000001c .LVL2
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:54     .text._fstat:0000000000000020 .LVL3
+C:\Users\elias\AppData\Local\Temp\ccs7pAFe.s:79     .debug_info:0000000000000000 .Ldebug_info0
+
+UNDEFINED SYMBOLS
+isatty

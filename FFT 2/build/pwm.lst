@@ -1,0 +1,1100 @@
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s 			page 1
+
+
+   1              		.file	"pwm.c"
+   2              		.option nopic
+   3              		.attribute arch, "rv32i2p0_m2p0_a2p0_c2p0"
+   4              		.attribute unaligned_access, 0
+   5              		.attribute stack_align, 16
+   6              		.text
+   7              	.Ltext0:
+   8              		.cfi_sections	.debug_frame
+   9              		.section	.text.T1powerUpInitPWM,"ax",@progbits
+  10              		.align	1
+  11              		.globl	T1powerUpInitPWM
+  13              	T1powerUpInitPWM:
+  14              	.LFB2:
+  15              		.file 1 "pwm.c"
+   1:pwm.c         **** #include "pwm.h"
+   2:pwm.c         **** 
+   3:pwm.c         **** void T1powerUpInitPWM(uint16_t ch){
+  16              		.loc 1 3 35
+  17              		.cfi_startproc
+  18              	.LVL0:
+   4:pwm.c         ****     timer_oc_parameter_struct timer_ocinitpara;
+  19              		.loc 1 4 5
+   5:pwm.c         ****     timer_parameter_struct timer_initpara;
+  20              		.loc 1 5 5
+   6:pwm.c         ****     rcu_periph_clock_enable(RCU_GPIOA);
+  21              		.loc 1 6 5
+   3:pwm.c         ****     timer_oc_parameter_struct timer_ocinitpara;
+  22              		.loc 1 3 35 is_stmt 0
+  23 0000 3971     		addi	sp,sp,-64
+  24              	.LCFI0:
+  25              		.cfi_def_cfa_offset 64
+  26 0002 22DC     		sw	s0,56(sp)
+  27              		.cfi_offset 8, -8
+  28 0004 2A84     		mv	s0,a0
+  29              		.loc 1 6 5
+  30 0006 13052060 		li	a0,1538
+  31              	.LVL1:
+   3:pwm.c         ****     timer_oc_parameter_struct timer_ocinitpara;
+  32              		.loc 1 3 35
+  33 000a 4ED6     		sw	s3,44(sp)
+  34 000c 06DE     		sw	ra,60(sp)
+  35 000e 26DA     		sw	s1,52(sp)
+  36 0010 4AD8     		sw	s2,48(sp)
+  37              		.cfi_offset 19, -20
+  38              		.cfi_offset 1, -4
+  39              		.cfi_offset 9, -12
+  40              		.cfi_offset 18, -16
+  41              		.loc 1 6 5
+  42 0012 97000000 		call	rcu_periph_clock_enable
+  42      E7800000 
+  43              	.LVL2:
+   7:pwm.c         ****     rcu_periph_clock_enable(RCU_AF);
+  44              		.loc 1 7 5 is_stmt 1
+  45 001a 93791400 		andi	s3,s0,1
+  46 001e 13050060 		li	a0,1536
+  47 0022 97000000 		call	rcu_periph_clock_enable
+  47      E7800000 
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s 			page 2
+
+
+  48              	.LVL3:
+   8:pwm.c         ****     if (ch&0x1) gpio_init(GPIOA, GPIO_MODE_AF_PP, GPIO_OSPEED_50MHZ, GPIO_PIN_0);
+  49              		.loc 1 8 5
+  50              		.loc 1 8 8 is_stmt 0
+  51 002a 639F0922 		bne	s3,zero,.L52
+  52              	.L2:
+   9:pwm.c         ****     if (ch&0x2) gpio_init(GPIOA, GPIO_MODE_AF_PP, GPIO_OSPEED_50MHZ, GPIO_PIN_1);
+  53              		.loc 1 9 5 is_stmt 1
+  54 002e 13792400 		andi	s2,s0,2
+  55              		.loc 1 9 8 is_stmt 0
+  56 0032 631F0920 		bne	s2,zero,.L53
+  57              	.L3:
+  10:pwm.c         ****     if (ch&0x4) gpio_init(GPIOA, GPIO_MODE_AF_PP, GPIO_OSPEED_50MHZ, GPIO_PIN_2);
+  58              		.loc 1 10 5 is_stmt 1
+  59 0036 93744400 		andi	s1,s0,4
+  60              		.loc 1 10 8 is_stmt 0
+  61 003a 639F041E 		bne	s1,zero,.L54
+  62              	.L4:
+  11:pwm.c         ****     if (ch&0x8) gpio_init(GPIOA, GPIO_MODE_AF_PP, GPIO_OSPEED_50MHZ, GPIO_PIN_3);
+  63              		.loc 1 11 5 is_stmt 1
+  64 003e 2188     		andi	s0,s0,8
+  65              		.loc 1 11 8 is_stmt 0
+  66 0040 6310041E 		bne	s0,zero,.L55
+  67              	.L5:
+  12:pwm.c         ****     rcu_periph_clock_enable(RCU_TIMER1);
+  68              		.loc 1 12 5 is_stmt 1
+  69 0044 13050070 		li	a0,1792
+  70 0048 97000000 		call	rcu_periph_clock_enable
+  70      E7800000 
+  71              	.LVL4:
+  13:pwm.c         **** 
+  14:pwm.c         ****     timer_deinit(TIMER1);
+  72              		.loc 1 14 5
+  73 0050 37050040 		li	a0,1073741824
+  74 0054 97000000 		call	timer_deinit
+  74      E7800000 
+  75              	.LVL5:
+  15:pwm.c         ****     timer_struct_para_init(&timer_initpara);
+  76              		.loc 1 15 5
+  77 005c 0808     		addi	a0,sp,16
+  78 005e 97000000 		call	timer_struct_para_init
+  78      E7800000 
+  79              	.LVL6:
+  16:pwm.c         ****     timer_initpara.prescaler         = 107;
+  80              		.loc 1 16 5
+  17:pwm.c         ****     timer_initpara.alignedmode       = TIMER_COUNTER_EDGE;
+  81              		.loc 1 17 5
+  18:pwm.c         ****     timer_initpara.counterdirection  = TIMER_COUNTER_UP;
+  82              		.loc 1 18 5
+  16:pwm.c         ****     timer_initpara.prescaler         = 107;
+  83              		.loc 1 16 38 is_stmt 0
+  84 0066 9307B006 		li	a5,107
+  85 006a 3EC8     		sw	a5,16(sp)
+  19:pwm.c         ****     timer_initpara.period            = 15999;
+  86              		.loc 1 19 38
+  87 006c 9167     		li	a5,16384
+  88 006e 9387F7E7 		addi	a5,a5,-385
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s 			page 3
+
+
+  20:pwm.c         ****     timer_initpara.clockdivision     = TIMER_CKDIV_DIV1;
+  21:pwm.c         ****     timer_initpara.repetitioncounter = 0;
+  22:pwm.c         ****     timer_init(TIMER1, &timer_initpara);
+  89              		.loc 1 22 5
+  90 0072 0C08     		addi	a1,sp,16
+  91 0074 37050040 		li	a0,1073741824
+  19:pwm.c         ****     timer_initpara.period            = 15999;
+  92              		.loc 1 19 38
+  93 0078 3ECC     		sw	a5,24(sp)
+  18:pwm.c         ****     timer_initpara.period            = 15999;
+  94              		.loc 1 18 38
+  95 007a 231A0100 		sh	zero,20(sp)
+  19:pwm.c         ****     timer_initpara.period            = 15999;
+  96              		.loc 1 19 5 is_stmt 1
+  20:pwm.c         ****     timer_initpara.clockdivision     = TIMER_CKDIV_DIV1;
+  97              		.loc 1 20 5
+  20:pwm.c         ****     timer_initpara.clockdivision     = TIMER_CKDIV_DIV1;
+  98              		.loc 1 20 38 is_stmt 0
+  99 007e 231E0100 		sh	zero,28(sp)
+  21:pwm.c         ****     timer_init(TIMER1, &timer_initpara);
+ 100              		.loc 1 21 5 is_stmt 1
+  21:pwm.c         ****     timer_init(TIMER1, &timer_initpara);
+ 101              		.loc 1 21 38 is_stmt 0
+ 102 0082 230F0100 		sb	zero,30(sp)
+ 103              		.loc 1 22 5 is_stmt 1
+ 104 0086 97000000 		call	timer_init
+ 104      E7800000 
+ 105              	.LVL7:
+  23:pwm.c         **** 
+  24:pwm.c         ****     timer_channel_output_struct_para_init(&timer_ocinitpara);
+ 106              		.loc 1 24 5
+ 107 008e 4800     		addi	a0,sp,4
+ 108 0090 97000000 		call	timer_channel_output_struct_para_init
+ 108      E7800000 
+ 109              	.LVL8:
+  25:pwm.c         ****     timer_ocinitpara.outputstate  = TIMER_CCX_ENABLE;
+ 110              		.loc 1 25 5
+  26:pwm.c         ****     timer_ocinitpara.outputnstate = TIMER_CCXN_DISABLE;
+ 111              		.loc 1 26 5
+  27:pwm.c         ****     timer_ocinitpara.ocpolarity   = TIMER_OC_POLARITY_HIGH;
+ 112              		.loc 1 27 5
+  28:pwm.c         ****     timer_ocinitpara.ocnpolarity  = TIMER_OCN_POLARITY_HIGH;
+ 113              		.loc 1 28 5
+  29:pwm.c         ****     timer_ocinitpara.ocidlestate  = TIMER_OC_IDLE_STATE_LOW;
+ 114              		.loc 1 29 5
+  30:pwm.c         ****     timer_ocinitpara.ocnidlestate = TIMER_OCN_IDLE_STATE_LOW;
+ 115              		.loc 1 30 5
+  25:pwm.c         ****     timer_ocinitpara.outputnstate = TIMER_CCXN_DISABLE;
+ 116              		.loc 1 25 35 is_stmt 0
+ 117 0098 8547     		li	a5,1
+ 118 009a 3EC2     		sw	a5,4(sp)
+  27:pwm.c         ****     timer_ocinitpara.ocnpolarity  = TIMER_OCN_POLARITY_HIGH;
+ 119              		.loc 1 27 35
+ 120 009c 02C4     		sw	zero,8(sp)
+  29:pwm.c         ****     timer_ocinitpara.ocnidlestate = TIMER_OCN_IDLE_STATE_LOW;
+ 121              		.loc 1 29 35
+ 122 009e 02C6     		sw	zero,12(sp)
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s 			page 4
+
+
+  31:pwm.c         ****     if (ch&0x1) timer_channel_output_config(TIMER1,TIMER_CH_0,&timer_ocinitpara);
+ 123              		.loc 1 31 5 is_stmt 1
+ 124              		.loc 1 31 8 is_stmt 0
+ 125 00a0 63950916 		bne	s3,zero,.L56
+  32:pwm.c         ****     if (ch&0x2) timer_channel_output_config(TIMER1,TIMER_CH_1,&timer_ocinitpara);
+ 126              		.loc 1 32 5 is_stmt 1
+ 127              		.loc 1 32 8 is_stmt 0
+ 128 00a4 63180914 		bne	s2,zero,.L57
+ 129              	.L7:
+  33:pwm.c         ****     if (ch&0x4) timer_channel_output_config(TIMER1,TIMER_CH_2,&timer_ocinitpara);
+ 130              		.loc 1 33 5 is_stmt 1
+ 131              		.loc 1 33 8 is_stmt 0
+ 132 00a8 639B0412 		bne	s1,zero,.L58
+ 133              	.L8:
+  34:pwm.c         ****     if (ch&0x8) timer_channel_output_config(TIMER1,TIMER_CH_3,&timer_ocinitpara);
+ 134              		.loc 1 34 5 is_stmt 1
+ 135              		.loc 1 34 8 is_stmt 0
+ 136 00ac 631E0410 		bne	s0,zero,.L59
+ 137              	.L9:
+  35:pwm.c         **** 
+  36:pwm.c         ****     if (ch&0x1) {
+ 138              		.loc 1 36 5 is_stmt 1
+ 139              		.loc 1 36 8 is_stmt 0
+ 140 00b0 639E090C 		bne	s3,zero,.L60
+ 141              	.L10:
+  37:pwm.c         ****         timer_channel_output_pulse_value_config(TIMER1,TIMER_CH_0,11999);
+  38:pwm.c         ****         timer_channel_output_mode_config(TIMER1,TIMER_CH_0,TIMER_OC_MODE_PWM0);
+  39:pwm.c         ****         timer_channel_output_shadow_config(TIMER1,TIMER_CH_0,TIMER_OC_SHADOW_DISABLE);
+  40:pwm.c         ****     }
+  41:pwm.c         ****    if (ch&0x2) {
+ 142              		.loc 1 41 4 is_stmt 1
+ 143              		.loc 1 41 7 is_stmt 0
+ 144 00b4 631F0908 		bne	s2,zero,.L61
+ 145              	.L11:
+  42:pwm.c         ****         timer_channel_output_pulse_value_config(TIMER1,TIMER_CH_1,11999);
+  43:pwm.c         ****         timer_channel_output_mode_config(TIMER1,TIMER_CH_1,TIMER_OC_MODE_PWM0);
+  44:pwm.c         ****         timer_channel_output_shadow_config(TIMER1,TIMER_CH_1,TIMER_OC_SHADOW_DISABLE);
+  45:pwm.c         ****     }
+  46:pwm.c         ****    if (ch&0x4) {
+ 146              		.loc 1 46 4 is_stmt 1
+ 147              		.loc 1 46 7 is_stmt 0
+ 148 00b8 8DE4     		bne	s1,zero,.L62
+ 149              	.L12:
+  47:pwm.c         ****         timer_channel_output_pulse_value_config(TIMER1,TIMER_CH_2,11999);
+  48:pwm.c         ****         timer_channel_output_mode_config(TIMER1,TIMER_CH_2,TIMER_OC_MODE_PWM0);
+  49:pwm.c         ****         timer_channel_output_shadow_config(TIMER1,TIMER_CH_2,TIMER_OC_SHADOW_DISABLE);
+  50:pwm.c         ****     }
+  51:pwm.c         ****    if (ch&0x8) {
+ 150              		.loc 1 51 4 is_stmt 1
+ 151              		.loc 1 51 7 is_stmt 0
+ 152 00ba 25E0     		bne	s0,zero,.L63
+ 153              	.L13:
+  52:pwm.c         ****         timer_channel_output_pulse_value_config(TIMER1,TIMER_CH_3,11999);
+  53:pwm.c         ****         timer_channel_output_mode_config(TIMER1,TIMER_CH_3,TIMER_OC_MODE_PWM0);
+  54:pwm.c         ****         timer_channel_output_shadow_config(TIMER1,TIMER_CH_3,TIMER_OC_SHADOW_DISABLE);
+  55:pwm.c         ****     }
+  56:pwm.c         ****     
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s 			page 5
+
+
+  57:pwm.c         ****     timer_auto_reload_shadow_enable(TIMER1);
+ 154              		.loc 1 57 5 is_stmt 1
+ 155 00bc 37050040 		li	a0,1073741824
+ 156 00c0 97000000 		call	timer_auto_reload_shadow_enable
+ 156      E7800000 
+ 157              	.LVL9:
+  58:pwm.c         ****     timer_enable(TIMER1);
+ 158              		.loc 1 58 5
+ 159 00c8 37050040 		li	a0,1073741824
+ 160 00cc 97000000 		call	timer_enable
+ 160      E7800000 
+ 161              	.LVL10:
+  59:pwm.c         **** }
+ 162              		.loc 1 59 1 is_stmt 0
+ 163 00d4 F250     		lw	ra,60(sp)
+ 164              		.cfi_remember_state
+ 165              		.cfi_restore 1
+ 166 00d6 6254     		lw	s0,56(sp)
+ 167              		.cfi_restore 8
+ 168 00d8 D254     		lw	s1,52(sp)
+ 169              		.cfi_restore 9
+ 170 00da 4259     		lw	s2,48(sp)
+ 171              		.cfi_restore 18
+ 172 00dc B259     		lw	s3,44(sp)
+ 173              		.cfi_restore 19
+ 174 00de 2161     		addi	sp,sp,64
+ 175              	.LCFI1:
+ 176              		.cfi_def_cfa_offset 0
+ 177 00e0 8280     		jr	ra
+ 178              	.L62:
+ 179              	.LCFI2:
+ 180              		.cfi_restore_state
+  47:pwm.c         ****         timer_channel_output_mode_config(TIMER1,TIMER_CH_2,TIMER_OC_MODE_PWM0);
+ 181              		.loc 1 47 9 is_stmt 1
+ 182 00e2 0D66     		li	a2,12288
+ 183 00e4 1306F6ED 		addi	a2,a2,-289
+ 184 00e8 8945     		li	a1,2
+ 185 00ea 37050040 		li	a0,1073741824
+ 186 00ee 97000000 		call	timer_channel_output_pulse_value_config
+ 186      E7800000 
+ 187              	.LVL11:
+  48:pwm.c         ****         timer_channel_output_shadow_config(TIMER1,TIMER_CH_2,TIMER_OC_SHADOW_DISABLE);
+ 188              		.loc 1 48 9
+ 189 00f6 13060006 		li	a2,96
+ 190 00fa 8945     		li	a1,2
+ 191 00fc 37050040 		li	a0,1073741824
+ 192 0100 97000000 		call	timer_channel_output_mode_config
+ 192      E7800000 
+ 193              	.LVL12:
+  49:pwm.c         ****     }
+ 194              		.loc 1 49 9
+ 195 0108 0146     		li	a2,0
+ 196 010a 8945     		li	a1,2
+ 197 010c 37050040 		li	a0,1073741824
+ 198 0110 97000000 		call	timer_channel_output_shadow_config
+ 198      E7800000 
+ 199              	.LVL13:
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s 			page 6
+
+
+  51:pwm.c         ****         timer_channel_output_pulse_value_config(TIMER1,TIMER_CH_3,11999);
+ 200              		.loc 1 51 4
+  51:pwm.c         ****         timer_channel_output_pulse_value_config(TIMER1,TIMER_CH_3,11999);
+ 201              		.loc 1 51 7 is_stmt 0
+ 202 0118 55D0     		beq	s0,zero,.L13
+ 203              	.L63:
+  52:pwm.c         ****         timer_channel_output_mode_config(TIMER1,TIMER_CH_3,TIMER_OC_MODE_PWM0);
+ 204              		.loc 1 52 9 is_stmt 1
+ 205 011a 0D66     		li	a2,12288
+ 206 011c 1306F6ED 		addi	a2,a2,-289
+ 207 0120 8D45     		li	a1,3
+ 208 0122 37050040 		li	a0,1073741824
+ 209 0126 97000000 		call	timer_channel_output_pulse_value_config
+ 209      E7800000 
+ 210              	.LVL14:
+  53:pwm.c         ****         timer_channel_output_shadow_config(TIMER1,TIMER_CH_3,TIMER_OC_SHADOW_DISABLE);
+ 211              		.loc 1 53 9
+ 212 012e 13060006 		li	a2,96
+ 213 0132 8D45     		li	a1,3
+ 214 0134 37050040 		li	a0,1073741824
+ 215 0138 97000000 		call	timer_channel_output_mode_config
+ 215      E7800000 
+ 216              	.LVL15:
+  54:pwm.c         ****     }
+ 217              		.loc 1 54 9
+ 218 0140 0146     		li	a2,0
+ 219 0142 8D45     		li	a1,3
+ 220 0144 37050040 		li	a0,1073741824
+ 221 0148 97000000 		call	timer_channel_output_shadow_config
+ 221      E7800000 
+ 222              	.LVL16:
+ 223 0150 B5B7     		j	.L13
+ 224              	.L61:
+  42:pwm.c         ****         timer_channel_output_mode_config(TIMER1,TIMER_CH_1,TIMER_OC_MODE_PWM0);
+ 225              		.loc 1 42 9
+ 226 0152 0D66     		li	a2,12288
+ 227 0154 1306F6ED 		addi	a2,a2,-289
+ 228 0158 8545     		li	a1,1
+ 229 015a 37050040 		li	a0,1073741824
+ 230 015e 97000000 		call	timer_channel_output_pulse_value_config
+ 230      E7800000 
+ 231              	.LVL17:
+  43:pwm.c         ****         timer_channel_output_shadow_config(TIMER1,TIMER_CH_1,TIMER_OC_SHADOW_DISABLE);
+ 232              		.loc 1 43 9
+ 233 0166 13060006 		li	a2,96
+ 234 016a 8545     		li	a1,1
+ 235 016c 37050040 		li	a0,1073741824
+ 236 0170 97000000 		call	timer_channel_output_mode_config
+ 236      E7800000 
+ 237              	.LVL18:
+  44:pwm.c         ****     }
+ 238              		.loc 1 44 9
+ 239 0178 0146     		li	a2,0
+ 240 017a 8545     		li	a1,1
+ 241 017c 37050040 		li	a0,1073741824
+ 242 0180 97000000 		call	timer_channel_output_shadow_config
+ 242      E7800000 
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s 			page 7
+
+
+ 243              	.LVL19:
+  46:pwm.c         ****         timer_channel_output_pulse_value_config(TIMER1,TIMER_CH_2,11999);
+ 244              		.loc 1 46 4
+  46:pwm.c         ****         timer_channel_output_pulse_value_config(TIMER1,TIMER_CH_2,11999);
+ 245              		.loc 1 46 7 is_stmt 0
+ 246 0188 8DD8     		beq	s1,zero,.L12
+ 247 018a A1BF     		j	.L62
+ 248              	.L60:
+  37:pwm.c         ****         timer_channel_output_mode_config(TIMER1,TIMER_CH_0,TIMER_OC_MODE_PWM0);
+ 249              		.loc 1 37 9 is_stmt 1
+ 250 018c 0D66     		li	a2,12288
+ 251 018e 1306F6ED 		addi	a2,a2,-289
+ 252 0192 8145     		li	a1,0
+ 253 0194 37050040 		li	a0,1073741824
+ 254 0198 97000000 		call	timer_channel_output_pulse_value_config
+ 254      E7800000 
+ 255              	.LVL20:
+  38:pwm.c         ****         timer_channel_output_shadow_config(TIMER1,TIMER_CH_0,TIMER_OC_SHADOW_DISABLE);
+ 256              		.loc 1 38 9
+ 257 01a0 13060006 		li	a2,96
+ 258 01a4 8145     		li	a1,0
+ 259 01a6 37050040 		li	a0,1073741824
+ 260 01aa 97000000 		call	timer_channel_output_mode_config
+ 260      E7800000 
+ 261              	.LVL21:
+  39:pwm.c         ****     }
+ 262              		.loc 1 39 9
+ 263 01b2 0146     		li	a2,0
+ 264 01b4 8145     		li	a1,0
+ 265 01b6 37050040 		li	a0,1073741824
+ 266 01ba 97000000 		call	timer_channel_output_shadow_config
+ 266      E7800000 
+ 267              	.LVL22:
+  41:pwm.c         ****         timer_channel_output_pulse_value_config(TIMER1,TIMER_CH_1,11999);
+ 268              		.loc 1 41 4
+  41:pwm.c         ****         timer_channel_output_pulse_value_config(TIMER1,TIMER_CH_1,11999);
+ 269              		.loc 1 41 7 is_stmt 0
+ 270 01c2 E30B09EE 		beq	s2,zero,.L11
+ 271 01c6 71B7     		j	.L61
+ 272              	.L59:
+  34:pwm.c         **** 
+ 273              		.loc 1 34 17 is_stmt 1 discriminator 1
+ 274 01c8 5000     		addi	a2,sp,4
+ 275 01ca 8D45     		li	a1,3
+ 276 01cc 37050040 		li	a0,1073741824
+ 277 01d0 97000000 		call	timer_channel_output_config
+ 277      E7800000 
+ 278              	.LVL23:
+  36:pwm.c         ****         timer_channel_output_pulse_value_config(TIMER1,TIMER_CH_0,11999);
+ 279              		.loc 1 36 5 discriminator 1
+  36:pwm.c         ****         timer_channel_output_pulse_value_config(TIMER1,TIMER_CH_0,11999);
+ 280              		.loc 1 36 8 is_stmt 0 discriminator 1
+ 281 01d8 E38E09EC 		beq	s3,zero,.L10
+ 282 01dc 45BF     		j	.L60
+ 283              	.L58:
+  33:pwm.c         ****     if (ch&0x8) timer_channel_output_config(TIMER1,TIMER_CH_3,&timer_ocinitpara);
+ 284              		.loc 1 33 17 is_stmt 1 discriminator 1
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s 			page 8
+
+
+ 285 01de 5000     		addi	a2,sp,4
+ 286 01e0 8945     		li	a1,2
+ 287 01e2 37050040 		li	a0,1073741824
+ 288 01e6 97000000 		call	timer_channel_output_config
+ 288      E7800000 
+ 289              	.LVL24:
+  34:pwm.c         **** 
+ 290              		.loc 1 34 5 discriminator 1
+  34:pwm.c         **** 
+ 291              		.loc 1 34 8 is_stmt 0 discriminator 1
+ 292 01ee E30104EC 		beq	s0,zero,.L9
+ 293 01f2 D9BF     		j	.L59
+ 294              	.L57:
+  32:pwm.c         ****     if (ch&0x4) timer_channel_output_config(TIMER1,TIMER_CH_2,&timer_ocinitpara);
+ 295              		.loc 1 32 17 is_stmt 1 discriminator 1
+ 296 01f4 5000     		addi	a2,sp,4
+ 297 01f6 8545     		li	a1,1
+ 298 01f8 37050040 		li	a0,1073741824
+ 299 01fc 97000000 		call	timer_channel_output_config
+ 299      E7800000 
+ 300              	.LVL25:
+  33:pwm.c         ****     if (ch&0x8) timer_channel_output_config(TIMER1,TIMER_CH_3,&timer_ocinitpara);
+ 301              		.loc 1 33 5 discriminator 1
+  33:pwm.c         ****     if (ch&0x8) timer_channel_output_config(TIMER1,TIMER_CH_3,&timer_ocinitpara);
+ 302              		.loc 1 33 8 is_stmt 0 discriminator 1
+ 303 0204 E38404EA 		beq	s1,zero,.L8
+ 304 0208 D9BF     		j	.L58
+ 305              	.L56:
+  31:pwm.c         ****     if (ch&0x2) timer_channel_output_config(TIMER1,TIMER_CH_1,&timer_ocinitpara);
+ 306              		.loc 1 31 17 is_stmt 1 discriminator 1
+ 307 020a 5000     		addi	a2,sp,4
+ 308 020c 8145     		li	a1,0
+ 309 020e 37050040 		li	a0,1073741824
+ 310 0212 97000000 		call	timer_channel_output_config
+ 310      E7800000 
+ 311              	.LVL26:
+  32:pwm.c         ****     if (ch&0x4) timer_channel_output_config(TIMER1,TIMER_CH_2,&timer_ocinitpara);
+ 312              		.loc 1 32 5 discriminator 1
+  32:pwm.c         ****     if (ch&0x4) timer_channel_output_config(TIMER1,TIMER_CH_2,&timer_ocinitpara);
+ 313              		.loc 1 32 8 is_stmt 0 discriminator 1
+ 314 021a E30709E8 		beq	s2,zero,.L7
+ 315 021e D9BF     		j	.L57
+ 316              	.L55:
+  11:pwm.c         ****     rcu_periph_clock_enable(RCU_TIMER1);
+ 317              		.loc 1 11 17 is_stmt 1 discriminator 1
+ 318 0220 37150140 		li	a0,1073811456
+ 319 0224 A146     		li	a3,8
+ 320 0226 0D46     		li	a2,3
+ 321 0228 E145     		li	a1,24
+ 322 022a 13050580 		addi	a0,a0,-2048
+ 323 022e 97000000 		call	gpio_init
+ 323      E7800000 
+ 324              	.LVL27:
+ 325 0236 39B5     		j	.L5
+ 326              	.L54:
+  10:pwm.c         ****     if (ch&0x8) gpio_init(GPIOA, GPIO_MODE_AF_PP, GPIO_OSPEED_50MHZ, GPIO_PIN_3);
+ 327              		.loc 1 10 17 discriminator 1
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s 			page 9
+
+
+ 328 0238 37150140 		li	a0,1073811456
+ 329 023c 9146     		li	a3,4
+ 330 023e 0D46     		li	a2,3
+ 331 0240 E145     		li	a1,24
+ 332 0242 13050580 		addi	a0,a0,-2048
+ 333 0246 97000000 		call	gpio_init
+ 333      E7800000 
+ 334              	.LVL28:
+ 335 024e C5BB     		j	.L4
+ 336              	.L53:
+   9:pwm.c         ****     if (ch&0x4) gpio_init(GPIOA, GPIO_MODE_AF_PP, GPIO_OSPEED_50MHZ, GPIO_PIN_2);
+ 337              		.loc 1 9 17 discriminator 1
+ 338 0250 37150140 		li	a0,1073811456
+ 339 0254 8946     		li	a3,2
+ 340 0256 0D46     		li	a2,3
+ 341 0258 E145     		li	a1,24
+ 342 025a 13050580 		addi	a0,a0,-2048
+ 343 025e 97000000 		call	gpio_init
+ 343      E7800000 
+ 344              	.LVL29:
+ 345 0266 C1BB     		j	.L3
+ 346              	.L52:
+   8:pwm.c         ****     if (ch&0x2) gpio_init(GPIOA, GPIO_MODE_AF_PP, GPIO_OSPEED_50MHZ, GPIO_PIN_1);
+ 347              		.loc 1 8 17 discriminator 1
+ 348 0268 37150140 		li	a0,1073811456
+ 349 026c 8546     		li	a3,1
+ 350 026e 0D46     		li	a2,3
+ 351 0270 E145     		li	a1,24
+ 352 0272 13050580 		addi	a0,a0,-2048
+ 353 0276 97000000 		call	gpio_init
+ 353      E7800000 
+ 354              	.LVL30:
+ 355 027e 45BB     		j	.L2
+ 356              		.cfi_endproc
+ 357              	.LFE2:
+ 359              		.section	.text.T1setPWMch2,"ax",@progbits
+ 360              		.align	1
+ 361              		.globl	T1setPWMch2
+ 363              	T1setPWMch2:
+ 364              	.LFB3:
+  60:pwm.c         **** 
+  61:pwm.c         **** void T1setPWMch2(int value){
+ 365              		.loc 1 61 28
+ 366              		.cfi_startproc
+ 367              	.LVL31:
+  62:pwm.c         ****     timer_channel_output_pulse_value_config(TIMER1,TIMER_CH_2,value);
+ 368              		.loc 1 62 5
+ 369 0000 2A86     		mv	a2,a0
+ 370 0002 8945     		li	a1,2
+ 371 0004 37050040 		li	a0,1073741824
+ 372              	.LVL32:
+ 373 0008 17030000 		tail	timer_channel_output_pulse_value_config
+ 373      67000300 
+ 374              	.LVL33:
+ 375              		.cfi_endproc
+ 376              	.LFE3:
+ 378              		.globl	__floatsidf
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s 			page 10
+
+
+ 379              		.globl	__divdf3
+ 380              		.globl	__muldf3
+ 381              		.globl	__fixunsdfsi
+ 382              		.section	.text.T1setPWMmotorB,"ax",@progbits
+ 383              		.align	1
+ 384              		.globl	T1setPWMmotorB
+ 386              	T1setPWMmotorB:
+ 387              	.LFB4:
+  63:pwm.c         **** }
+  64:pwm.c         **** 
+  65:pwm.c         **** void T1setPWMmotorB(int throttel){
+ 388              		.loc 1 65 34
+ 389              		.cfi_startproc
+ 390              	.LVL34:
+  66:pwm.c         ****     if (throttel>0) {
+ 391              		.loc 1 66 5
+  65:pwm.c         ****     if (throttel>0) {
+ 392              		.loc 1 65 34 is_stmt 0
+ 393 0000 4111     		addi	sp,sp,-16
+ 394              	.LCFI3:
+ 395              		.cfi_def_cfa_offset 16
+ 396 0002 06C6     		sw	ra,12(sp)
+ 397 0004 22C4     		sw	s0,8(sp)
+ 398              		.cfi_offset 1, -4
+ 399              		.cfi_offset 8, -8
+ 400              		.loc 1 66 8
+ 401 0006 6351A006 		ble	a0,zero,.L66
+  67:pwm.c         ****        timer_channel_output_pulse_value_config(TIMER1,TIMER_CH_2,(throttel/100.0)*16000);
+ 402              		.loc 1 67 8 is_stmt 1
+ 403              		.loc 1 67 75 is_stmt 0
+ 404 000a 97000000 		call	__floatsidf
+ 404      E7800000 
+ 405              	.LVL35:
+ 406 0012 B7070000 		lui	a5,%hi(.LC0)
+ 407 0016 03A60700 		lw	a2,%lo(.LC0)(a5)
+ 408 001a 83A64700 		lw	a3,%lo(.LC0+4)(a5)
+ 409 001e 97000000 		call	__divdf3
+ 409      E7800000 
+ 410              	.LVL36:
+ 411              		.loc 1 67 82
+ 412 0026 B7070000 		lui	a5,%hi(.LC1)
+ 413 002a 03A60700 		lw	a2,%lo(.LC1)(a5)
+ 414 002e 83A64700 		lw	a3,%lo(.LC1+4)(a5)
+ 415 0032 97000000 		call	__muldf3
+ 415      E7800000 
+ 416              	.LVL37:
+ 417              		.loc 1 67 8
+ 418 003a 97000000 		call	__fixunsdfsi
+ 418      E7800000 
+ 419              	.LVL38:
+ 420 0042 2A86     		mv	a2,a0
+ 421 0044 8945     		li	a1,2
+ 422 0046 37050040 		li	a0,1073741824
+ 423 004a 97000000 		call	timer_channel_output_pulse_value_config
+ 423      E7800000 
+ 424              	.LVL39:
+  68:pwm.c         ****        timer_channel_output_pulse_value_config(TIMER1,TIMER_CH_3,0);
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s 			page 11
+
+
+ 425              		.loc 1 68 8 is_stmt 1
+  69:pwm.c         ****     } else {
+  70:pwm.c         ****        timer_channel_output_pulse_value_config(TIMER1,TIMER_CH_2,0);
+  71:pwm.c         ****        timer_channel_output_pulse_value_config(TIMER1,TIMER_CH_3,(-throttel/100.0)*16000);
+  72:pwm.c         ****     }
+  73:pwm.c         **** }
+ 426              		.loc 1 73 1 is_stmt 0
+ 427 0052 2244     		lw	s0,8(sp)
+ 428              		.cfi_remember_state
+ 429              		.cfi_restore 8
+ 430 0054 B240     		lw	ra,12(sp)
+ 431              		.cfi_restore 1
+  68:pwm.c         ****        timer_channel_output_pulse_value_config(TIMER1,TIMER_CH_3,0);
+ 432              		.loc 1 68 8
+ 433 0056 0146     		li	a2,0
+ 434              		.loc 1 73 1
+  71:pwm.c         ****     }
+ 435              		.loc 1 71 8
+ 436 0058 8D45     		li	a1,3
+ 437 005a 37050040 		li	a0,1073741824
+ 438              		.loc 1 73 1
+ 439 005e 4101     		addi	sp,sp,16
+ 440              	.LCFI4:
+ 441              		.cfi_def_cfa_offset 0
+  71:pwm.c         ****     }
+ 442              		.loc 1 71 8
+ 443 0060 17030000 		tail	timer_channel_output_pulse_value_config
+ 443      67000300 
+ 444              	.LVL40:
+ 445              	.L66:
+ 446              	.LCFI5:
+ 447              		.cfi_restore_state
+  70:pwm.c         ****        timer_channel_output_pulse_value_config(TIMER1,TIMER_CH_3,(-throttel/100.0)*16000);
+ 448              		.loc 1 70 8 is_stmt 1
+ 449 0068 2A84     		mv	s0,a0
+ 450 006a 0146     		li	a2,0
+ 451 006c 8945     		li	a1,2
+ 452 006e 37050040 		li	a0,1073741824
+ 453              	.LVL41:
+ 454 0072 97000000 		call	timer_channel_output_pulse_value_config
+ 454      E7800000 
+ 455              	.LVL42:
+  71:pwm.c         ****     }
+ 456              		.loc 1 71 8
+  71:pwm.c         ****     }
+ 457              		.loc 1 71 76 is_stmt 0
+ 458 007a 33058040 		neg	a0,s0
+ 459 007e 97000000 		call	__floatsidf
+ 459      E7800000 
+ 460              	.LVL43:
+ 461 0086 B7070000 		lui	a5,%hi(.LC0)
+ 462 008a 03A60700 		lw	a2,%lo(.LC0)(a5)
+ 463 008e 83A64700 		lw	a3,%lo(.LC0+4)(a5)
+ 464 0092 97000000 		call	__divdf3
+ 464      E7800000 
+ 465              	.LVL44:
+  71:pwm.c         ****     }
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s 			page 12
+
+
+ 466              		.loc 1 71 83
+ 467 009a B7070000 		lui	a5,%hi(.LC1)
+ 468 009e 03A60700 		lw	a2,%lo(.LC1)(a5)
+ 469 00a2 83A64700 		lw	a3,%lo(.LC1+4)(a5)
+ 470 00a6 97000000 		call	__muldf3
+ 470      E7800000 
+ 471              	.LVL45:
+  71:pwm.c         ****     }
+ 472              		.loc 1 71 8
+ 473 00ae 97000000 		call	__fixunsdfsi
+ 473      E7800000 
+ 474              	.LVL46:
+ 475              		.loc 1 73 1
+ 476 00b6 2244     		lw	s0,8(sp)
+ 477              		.cfi_restore 8
+ 478              	.LVL47:
+ 479 00b8 B240     		lw	ra,12(sp)
+ 480              		.cfi_restore 1
+  71:pwm.c         ****     }
+ 481              		.loc 1 71 8
+ 482 00ba 2A86     		mv	a2,a0
+ 483              		.loc 1 73 1
+  71:pwm.c         ****     }
+ 484              		.loc 1 71 8
+ 485 00bc 8D45     		li	a1,3
+ 486 00be 37050040 		li	a0,1073741824
+ 487              		.loc 1 73 1
+ 488 00c2 4101     		addi	sp,sp,16
+ 489              	.LCFI6:
+ 490              		.cfi_def_cfa_offset 0
+  71:pwm.c         ****     }
+ 491              		.loc 1 71 8
+ 492 00c4 17030000 		tail	timer_channel_output_pulse_value_config
+ 492      67000300 
+ 493              	.LVL48:
+ 494              		.cfi_endproc
+ 495              	.LFE4:
+ 497              		.section	.rodata.T1setPWMmotorB.cst8,"aM",@progbits,8
+ 498              		.align	3
+ 499              	.LC0:
+ 500 0000 00000000 		.word	0
+ 501 0004 00005940 		.word	1079574528
+ 502              	.LC1:
+ 503 0008 00000000 		.word	0
+ 504 000c 0040CF40 		.word	1087324160
+ 505              		.text
+ 506              	.Letext0:
+ 507              		.file 2 "c:\\users\\elias\\desktop\\fft\\projektet\\toolchain-gd32v-win\\compiler\\riscv64-unknown
+ 508              		.file 3 "c:\\users\\elias\\desktop\\fft\\projektet\\toolchain-gd32v-win\\compiler\\riscv64-unknown
+ 509              		.file 4 "../../firmware/GD32VF103_standard_peripheral/Include/gd32vf103_timer.h"
+ 510              		.file 5 "../../firmware/GD32VF103_standard_peripheral/Include/gd32vf103_rcu.h"
+ 511              		.file 6 "../../firmware/GD32VF103_standard_peripheral/Include/gd32vf103_gpio.h"
+ 512              		.file 7 "../../firmware/GD32VF103_standard_peripheral/system_gd32vf103.h"
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s 			page 13
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 pwm.c
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:13     .text.T1powerUpInitPWM:0000000000000000 T1powerUpInitPWM
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:17     .text.T1powerUpInitPWM:0000000000000000 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:19     .text.T1powerUpInitPWM:0000000000000000 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:20     .text.T1powerUpInitPWM:0000000000000000 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:21     .text.T1powerUpInitPWM:0000000000000000 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:22     .text.T1powerUpInitPWM:0000000000000000 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:23     .text.T1powerUpInitPWM:0000000000000000 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:25     .text.T1powerUpInitPWM:0000000000000002 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:27     .text.T1powerUpInitPWM:0000000000000004 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:30     .text.T1powerUpInitPWM:0000000000000006 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:33     .text.T1powerUpInitPWM:000000000000000a .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:37     .text.T1powerUpInitPWM:0000000000000012 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:38     .text.T1powerUpInitPWM:0000000000000012 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:39     .text.T1powerUpInitPWM:0000000000000012 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:40     .text.T1powerUpInitPWM:0000000000000012 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:42     .text.T1powerUpInitPWM:0000000000000012 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:45     .text.T1powerUpInitPWM:000000000000001a .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:50     .text.T1powerUpInitPWM:000000000000002a .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:51     .text.T1powerUpInitPWM:000000000000002a .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:54     .text.T1powerUpInitPWM:000000000000002e .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:56     .text.T1powerUpInitPWM:0000000000000032 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:59     .text.T1powerUpInitPWM:0000000000000036 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:61     .text.T1powerUpInitPWM:000000000000003a .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:64     .text.T1powerUpInitPWM:000000000000003e .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:66     .text.T1powerUpInitPWM:0000000000000040 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:69     .text.T1powerUpInitPWM:0000000000000044 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:73     .text.T1powerUpInitPWM:0000000000000050 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:77     .text.T1powerUpInitPWM:000000000000005c .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:81     .text.T1powerUpInitPWM:0000000000000066 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:82     .text.T1powerUpInitPWM:0000000000000066 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:83     .text.T1powerUpInitPWM:0000000000000066 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:84     .text.T1powerUpInitPWM:0000000000000066 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:87     .text.T1powerUpInitPWM:000000000000006c .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:90     .text.T1powerUpInitPWM:0000000000000072 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:93     .text.T1powerUpInitPWM:0000000000000078 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:95     .text.T1powerUpInitPWM:000000000000007a .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:97     .text.T1powerUpInitPWM:000000000000007e .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:98     .text.T1powerUpInitPWM:000000000000007e .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:99     .text.T1powerUpInitPWM:000000000000007e .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:101    .text.T1powerUpInitPWM:0000000000000082 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:102    .text.T1powerUpInitPWM:0000000000000082 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:104    .text.T1powerUpInitPWM:0000000000000086 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:107    .text.T1powerUpInitPWM:000000000000008e .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:111    .text.T1powerUpInitPWM:0000000000000098 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:112    .text.T1powerUpInitPWM:0000000000000098 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:113    .text.T1powerUpInitPWM:0000000000000098 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:114    .text.T1powerUpInitPWM:0000000000000098 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:115    .text.T1powerUpInitPWM:0000000000000098 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:116    .text.T1powerUpInitPWM:0000000000000098 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:117    .text.T1powerUpInitPWM:0000000000000098 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:120    .text.T1powerUpInitPWM:000000000000009c .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:122    .text.T1powerUpInitPWM:000000000000009e .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:124    .text.T1powerUpInitPWM:00000000000000a0 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:125    .text.T1powerUpInitPWM:00000000000000a0 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:127    .text.T1powerUpInitPWM:00000000000000a4 .L0 
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s 			page 14
+
+
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:128    .text.T1powerUpInitPWM:00000000000000a4 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:131    .text.T1powerUpInitPWM:00000000000000a8 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:132    .text.T1powerUpInitPWM:00000000000000a8 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:135    .text.T1powerUpInitPWM:00000000000000ac .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:136    .text.T1powerUpInitPWM:00000000000000ac .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:139    .text.T1powerUpInitPWM:00000000000000b0 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:140    .text.T1powerUpInitPWM:00000000000000b0 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:143    .text.T1powerUpInitPWM:00000000000000b4 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:144    .text.T1powerUpInitPWM:00000000000000b4 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:147    .text.T1powerUpInitPWM:00000000000000b8 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:148    .text.T1powerUpInitPWM:00000000000000b8 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:151    .text.T1powerUpInitPWM:00000000000000ba .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:152    .text.T1powerUpInitPWM:00000000000000ba .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:155    .text.T1powerUpInitPWM:00000000000000bc .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:159    .text.T1powerUpInitPWM:00000000000000c8 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:163    .text.T1powerUpInitPWM:00000000000000d4 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:164    .text.T1powerUpInitPWM:00000000000000d6 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:165    .text.T1powerUpInitPWM:00000000000000d6 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:167    .text.T1powerUpInitPWM:00000000000000d8 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:169    .text.T1powerUpInitPWM:00000000000000da .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:171    .text.T1powerUpInitPWM:00000000000000dc .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:173    .text.T1powerUpInitPWM:00000000000000de .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:176    .text.T1powerUpInitPWM:00000000000000e0 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:180    .text.T1powerUpInitPWM:00000000000000e2 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:182    .text.T1powerUpInitPWM:00000000000000e2 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:189    .text.T1powerUpInitPWM:00000000000000f6 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:195    .text.T1powerUpInitPWM:0000000000000108 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:201    .text.T1powerUpInitPWM:0000000000000118 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:202    .text.T1powerUpInitPWM:0000000000000118 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:205    .text.T1powerUpInitPWM:000000000000011a .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:212    .text.T1powerUpInitPWM:000000000000012e .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:218    .text.T1powerUpInitPWM:0000000000000140 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:226    .text.T1powerUpInitPWM:0000000000000152 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:233    .text.T1powerUpInitPWM:0000000000000166 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:239    .text.T1powerUpInitPWM:0000000000000178 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:245    .text.T1powerUpInitPWM:0000000000000188 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:246    .text.T1powerUpInitPWM:0000000000000188 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:250    .text.T1powerUpInitPWM:000000000000018c .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:257    .text.T1powerUpInitPWM:00000000000001a0 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:263    .text.T1powerUpInitPWM:00000000000001b2 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:269    .text.T1powerUpInitPWM:00000000000001c2 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:270    .text.T1powerUpInitPWM:00000000000001c2 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:274    .text.T1powerUpInitPWM:00000000000001c8 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:280    .text.T1powerUpInitPWM:00000000000001d8 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:281    .text.T1powerUpInitPWM:00000000000001d8 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:285    .text.T1powerUpInitPWM:00000000000001de .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:291    .text.T1powerUpInitPWM:00000000000001ee .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:292    .text.T1powerUpInitPWM:00000000000001ee .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:296    .text.T1powerUpInitPWM:00000000000001f4 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:302    .text.T1powerUpInitPWM:0000000000000204 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:303    .text.T1powerUpInitPWM:0000000000000204 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:307    .text.T1powerUpInitPWM:000000000000020a .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:313    .text.T1powerUpInitPWM:000000000000021a .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:314    .text.T1powerUpInitPWM:000000000000021a .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:318    .text.T1powerUpInitPWM:0000000000000220 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:328    .text.T1powerUpInitPWM:0000000000000238 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:338    .text.T1powerUpInitPWM:0000000000000250 .L0 
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s 			page 15
+
+
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:348    .text.T1powerUpInitPWM:0000000000000268 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:356    .text.T1powerUpInitPWM:0000000000000280 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:363    .text.T1setPWMch2:0000000000000000 T1setPWMch2
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:366    .text.T1setPWMch2:0000000000000000 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:368    .text.T1setPWMch2:0000000000000000 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:369    .text.T1setPWMch2:0000000000000000 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:375    .text.T1setPWMch2:0000000000000010 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:386    .text.T1setPWMmotorB:0000000000000000 T1setPWMmotorB
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:389    .text.T1setPWMmotorB:0000000000000000 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:391    .text.T1setPWMmotorB:0000000000000000 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:392    .text.T1setPWMmotorB:0000000000000000 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:393    .text.T1setPWMmotorB:0000000000000000 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:395    .text.T1setPWMmotorB:0000000000000002 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:398    .text.T1setPWMmotorB:0000000000000006 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:399    .text.T1setPWMmotorB:0000000000000006 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:401    .text.T1setPWMmotorB:0000000000000006 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:403    .text.T1setPWMmotorB:000000000000000a .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:404    .text.T1setPWMmotorB:000000000000000a .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:412    .text.T1setPWMmotorB:0000000000000026 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:418    .text.T1setPWMmotorB:000000000000003a .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:426    .text.T1setPWMmotorB:0000000000000052 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:427    .text.T1setPWMmotorB:0000000000000052 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:428    .text.T1setPWMmotorB:0000000000000054 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:429    .text.T1setPWMmotorB:0000000000000054 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:431    .text.T1setPWMmotorB:0000000000000056 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:433    .text.T1setPWMmotorB:0000000000000056 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:435    .text.T1setPWMmotorB:0000000000000058 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:436    .text.T1setPWMmotorB:0000000000000058 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:439    .text.T1setPWMmotorB:000000000000005e .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:441    .text.T1setPWMmotorB:0000000000000060 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:443    .text.T1setPWMmotorB:0000000000000060 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:447    .text.T1setPWMmotorB:0000000000000068 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:449    .text.T1setPWMmotorB:0000000000000068 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:457    .text.T1setPWMmotorB:000000000000007a .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:458    .text.T1setPWMmotorB:000000000000007a .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:467    .text.T1setPWMmotorB:000000000000009a .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:473    .text.T1setPWMmotorB:00000000000000ae .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:476    .text.T1setPWMmotorB:00000000000000b6 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:477    .text.T1setPWMmotorB:00000000000000b8 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:480    .text.T1setPWMmotorB:00000000000000ba .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:482    .text.T1setPWMmotorB:00000000000000ba .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:484    .text.T1setPWMmotorB:00000000000000bc .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:485    .text.T1setPWMmotorB:00000000000000bc .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:488    .text.T1setPWMmotorB:00000000000000c2 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:490    .text.T1setPWMmotorB:00000000000000c4 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:492    .text.T1setPWMmotorB:00000000000000c4 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:494    .text.T1setPWMmotorB:00000000000000cc .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:359    .text.T1powerUpInitPWM:0000000000000280 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:382    .text.T1setPWMch2:0000000000000010 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:497    .text.T1setPWMmotorB:00000000000000cc .L0 
+                     .debug_frame:0000000000000000 .L0 
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:346    .text.T1powerUpInitPWM:0000000000000268 .L52
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:336    .text.T1powerUpInitPWM:0000000000000250 .L53
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:326    .text.T1powerUpInitPWM:0000000000000238 .L54
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:316    .text.T1powerUpInitPWM:0000000000000220 .L55
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:305    .text.T1powerUpInitPWM:000000000000020a .L56
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:294    .text.T1powerUpInitPWM:00000000000001f4 .L57
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s 			page 16
+
+
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:283    .text.T1powerUpInitPWM:00000000000001de .L58
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:272    .text.T1powerUpInitPWM:00000000000001c8 .L59
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:248    .text.T1powerUpInitPWM:000000000000018c .L60
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:224    .text.T1powerUpInitPWM:0000000000000152 .L61
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:178    .text.T1powerUpInitPWM:00000000000000e2 .L62
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:203    .text.T1powerUpInitPWM:000000000000011a .L63
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:153    .text.T1powerUpInitPWM:00000000000000bc .L13
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:149    .text.T1powerUpInitPWM:00000000000000ba .L12
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:145    .text.T1powerUpInitPWM:00000000000000b8 .L11
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:141    .text.T1powerUpInitPWM:00000000000000b4 .L10
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:137    .text.T1powerUpInitPWM:00000000000000b0 .L9
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:133    .text.T1powerUpInitPWM:00000000000000ac .L8
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:129    .text.T1powerUpInitPWM:00000000000000a8 .L7
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:67     .text.T1powerUpInitPWM:0000000000000044 .L5
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:62     .text.T1powerUpInitPWM:000000000000003e .L4
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:57     .text.T1powerUpInitPWM:0000000000000036 .L3
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:52     .text.T1powerUpInitPWM:000000000000002e .L2
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:499    .rodata.T1setPWMmotorB.cst8:0000000000000000 .LC0
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:502    .rodata.T1setPWMmotorB.cst8:0000000000000008 .LC1
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:445    .text.T1setPWMmotorB:0000000000000068 .L66
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:1727   .debug_abbrev:0000000000000000 .Ldebug_abbrev0
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2360   .debug_str:00000000000002c0 .LASF86
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2290   .debug_str:00000000000000c5 .LASF87
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2352   .debug_str:000000000000024e .LASF88
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2248   .debug_ranges:0000000000000000 .Ldebug_ranges0
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2258   .debug_line:0000000000000000 .Ldebug_line0
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2364   .debug_str:0000000000000343 .LASF0
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2356   .debug_str:000000000000029d .LASF1
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2438   .debug_str:0000000000000549 .LASF4
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2346   .debug_str:000000000000021f .LASF2
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2324   .debug_str:0000000000000171 .LASF3
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2280   .debug_str:0000000000000069 .LASF5
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2374   .debug_str:0000000000000385 .LASF6
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2312   .debug_str:0000000000000139 .LASF7
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2276   .debug_str:0000000000000056 .LASF8
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2396   .debug_str:000000000000041c .LASF9
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2274   .debug_str:0000000000000048 .LASF10
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2358   .debug_str:00000000000002a9 .LASF11
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2294   .debug_str:00000000000000da .LASF12
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2366   .debug_str:0000000000000350 .LASF13
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2362   .debug_str:000000000000033a .LASF14
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2388   .debug_str:00000000000003f5 .LASF89
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2296   .debug_str:00000000000000e2 .LASF15
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2390   .debug_str:0000000000000405 .LASF16
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2432   .debug_str:0000000000000518 .LASF17
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2428   .debug_str:0000000000000503 .LASF18
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2410   .debug_str:0000000000000473 .LASF19
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2330   .debug_str:00000000000001ae .LASF20
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2332   .debug_str:00000000000001b9 .LASF21
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2334   .debug_str:00000000000001c4 .LASF22
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2336   .debug_str:00000000000001cf .LASF23
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2338   .debug_str:00000000000001da .LASF24
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2340   .debug_str:00000000000001e5 .LASF25
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2306   .debug_str:0000000000000115 .LASF26
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2316   .debug_str:000000000000014b .LASF27
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2318   .debug_str:0000000000000154 .LASF28
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2406   .debug_str:000000000000045d .LASF29
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s 			page 17
+
+
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2408   .debug_str:0000000000000468 .LASF30
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2412   .debug_str:000000000000047d .LASF31
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2414   .debug_str:0000000000000487 .LASF32
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2380   .debug_str:00000000000003c9 .LASF33
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2382   .debug_str:00000000000003d2 .LASF34
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2302   .debug_str:0000000000000103 .LASF35
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2304   .debug_str:000000000000010c .LASF36
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2354   .debug_str:0000000000000294 .LASF37
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2322   .debug_str:0000000000000169 .LASF38
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2434   .debug_str:0000000000000520 .LASF39
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2278   .debug_str:0000000000000061 .LASF40
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2394   .debug_str:0000000000000415 .LASF41
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2262   .debug_str:000000000000000d .LASF42
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2264   .debug_str:0000000000000017 .LASF43
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2266   .debug_str:0000000000000021 .LASF44
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2268   .debug_str:000000000000002b .LASF45
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2270   .debug_str:0000000000000035 .LASF46
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2350   .debug_str:0000000000000245 .LASF47
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2386   .debug_str:00000000000003ec .LASF48
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2328   .debug_str:00000000000001a3 .LASF49
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2314   .debug_str:0000000000000142 .LASF50
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2404   .debug_str:0000000000000452 .LASF51
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2370   .debug_str:000000000000036a .LASF52
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2320   .debug_str:000000000000015d .LASF53
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2384   .debug_str:00000000000003db .LASF54
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2392   .debug_str:000000000000040e .LASF55
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2286   .debug_str:00000000000000b1 .LASF56
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2416   .debug_str:0000000000000491 .LASF57
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2284   .debug_str:000000000000009a .LASF58
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2300   .debug_str:00000000000000f7 .LASF59
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2402   .debug_str:0000000000000445 .LASF60
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2420   .debug_str:00000000000004c3 .LASF61
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2430   .debug_str:000000000000050c .LASF62
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2298   .debug_str:00000000000000eb .LASF63
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2398   .debug_str:000000000000042e .LASF64
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2378   .debug_str:00000000000003af .LASF65
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2342   .debug_str:00000000000001f0 .LASF66
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2308   .debug_str:000000000000011f .LASF67
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:387    .text.T1setPWMmotorB:0000000000000000 .LFB4
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:495    .text.T1setPWMmotorB:00000000000000cc .LFE4
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2119   .debug_loc:0000000000000000 .LLST3
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2272   .debug_str:000000000000003f .LASF69
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2147   .debug_loc:0000000000000044 .LLST4
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:424    .text.T1setPWMmotorB:0000000000000052 .LVL39
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:444    .text.T1setPWMmotorB:0000000000000068 .LVL40
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:455    .text.T1setPWMmotorB:000000000000007a .LVL42
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:493    .text.T1setPWMmotorB:00000000000000cc .LVL48
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2424   .debug_str:00000000000004ea .LASF68
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:364    .text.T1setPWMch2:0000000000000000 .LFB3
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:376    .text.T1setPWMch2:0000000000000010 .LFE3
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2288   .debug_str:00000000000000bf .LASF70
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2176   .debug_loc:0000000000000089 .LLST2
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:374    .text.T1setPWMch2:0000000000000010 .LVL33
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2372   .debug_str:0000000000000374 .LASF71
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:14     .text.T1powerUpInitPWM:0000000000000000 .LFB2
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:357    .text.T1powerUpInitPWM:0000000000000280 .LFE2
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2194   .debug_loc:00000000000000b5 .LLST0
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s 			page 18
+
+
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2217   .debug_loc:00000000000000ef .LLST1
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2368   .debug_str:0000000000000359 .LASF72
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2292   .debug_str:00000000000000cb .LASF73
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:43     .text.T1powerUpInitPWM:000000000000001a .LVL2
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:48     .text.T1powerUpInitPWM:000000000000002a .LVL3
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:71     .text.T1powerUpInitPWM:0000000000000050 .LVL4
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:75     .text.T1powerUpInitPWM:000000000000005c .LVL5
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:79     .text.T1powerUpInitPWM:0000000000000066 .LVL6
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:105    .text.T1powerUpInitPWM:000000000000008e .LVL7
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:109    .text.T1powerUpInitPWM:0000000000000098 .LVL8
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:157    .text.T1powerUpInitPWM:00000000000000c8 .LVL9
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:161    .text.T1powerUpInitPWM:00000000000000d4 .LVL10
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:187    .text.T1powerUpInitPWM:00000000000000f6 .LVL11
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:193    .text.T1powerUpInitPWM:0000000000000108 .LVL12
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:199    .text.T1powerUpInitPWM:0000000000000118 .LVL13
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:210    .text.T1powerUpInitPWM:000000000000012e .LVL14
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:216    .text.T1powerUpInitPWM:0000000000000140 .LVL15
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:222    .text.T1powerUpInitPWM:0000000000000150 .LVL16
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:231    .text.T1powerUpInitPWM:0000000000000166 .LVL17
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:237    .text.T1powerUpInitPWM:0000000000000178 .LVL18
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:243    .text.T1powerUpInitPWM:0000000000000188 .LVL19
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:255    .text.T1powerUpInitPWM:00000000000001a0 .LVL20
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:261    .text.T1powerUpInitPWM:00000000000001b2 .LVL21
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:267    .text.T1powerUpInitPWM:00000000000001c2 .LVL22
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:278    .text.T1powerUpInitPWM:00000000000001d8 .LVL23
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:289    .text.T1powerUpInitPWM:00000000000001ee .LVL24
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:300    .text.T1powerUpInitPWM:0000000000000204 .LVL25
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:311    .text.T1powerUpInitPWM:000000000000021a .LVL26
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:324    .text.T1powerUpInitPWM:0000000000000236 .LVL27
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:334    .text.T1powerUpInitPWM:000000000000024e .LVL28
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:344    .text.T1powerUpInitPWM:0000000000000266 .LVL29
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:354    .text.T1powerUpInitPWM:000000000000027e .LVL30
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2326   .debug_str:000000000000017b .LASF74
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2348   .debug_str:000000000000022d .LASF75
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2426   .debug_str:00000000000004f6 .LASF76
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2376   .debug_str:0000000000000398 .LASF77
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2310   .debug_str:000000000000012e .LASF78
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2282   .debug_str:0000000000000074 .LASF79
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2418   .debug_str:00000000000004a3 .LASF80
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2260   .debug_str:0000000000000000 .LASF81
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2436   .debug_str:0000000000000528 .LASF82
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2344   .debug_str:00000000000001fc .LASF83
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2422   .debug_str:00000000000004ce .LASF84
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:2400   .debug_str:000000000000043b .LASF85
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:394    .text.T1setPWMmotorB:0000000000000002 .LCFI3
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:440    .text.T1setPWMmotorB:0000000000000060 .LCFI4
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:446    .text.T1setPWMmotorB:0000000000000068 .LCFI5
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:489    .text.T1setPWMmotorB:00000000000000c4 .LCFI6
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:390    .text.T1setPWMmotorB:0000000000000000 .LVL34
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:405    .text.T1setPWMmotorB:0000000000000012 .LVL35
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:453    .text.T1setPWMmotorB:0000000000000072 .LVL41
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:478    .text.T1setPWMmotorB:00000000000000b8 .LVL47
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:367    .text.T1setPWMch2:0000000000000000 .LVL31
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:372    .text.T1setPWMch2:0000000000000008 .LVL32
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:24     .text.T1powerUpInitPWM:0000000000000002 .LCFI0
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:175    .text.T1powerUpInitPWM:00000000000000e0 .LCFI1
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:179    .text.T1powerUpInitPWM:00000000000000e2 .LCFI2
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s 			page 19
+
+
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:18     .text.T1powerUpInitPWM:0000000000000000 .LVL0
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:31     .text.T1powerUpInitPWM:000000000000000a .LVL1
+C:\Users\elias\AppData\Local\Temp\ccIPN9Nl.s:514    .debug_info:0000000000000000 .Ldebug_info0
+
+UNDEFINED SYMBOLS
+rcu_periph_clock_enable
+timer_deinit
+timer_struct_para_init
+timer_init
+timer_channel_output_struct_para_init
+timer_auto_reload_shadow_enable
+timer_enable
+timer_channel_output_pulse_value_config
+timer_channel_output_mode_config
+timer_channel_output_shadow_config
+timer_channel_output_config
+gpio_init
+__floatsidf
+__divdf3
+__muldf3
+__fixunsdfsi

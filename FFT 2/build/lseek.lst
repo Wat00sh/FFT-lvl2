@@ -1,0 +1,257 @@
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s 			page 1
+
+
+   1              		.file	"lseek.c"
+   2              		.option nopic
+   3              		.attribute arch, "rv32i2p0_m2p0_a2p0_c2p0"
+   4              		.attribute unaligned_access, 0
+   5              		.attribute stack_align, 16
+   6              		.text
+   7              	.Ltext0:
+   8              		.cfi_sections	.debug_frame
+   9              		.section	.text._lseek,"ax",@progbits
+  10              		.align	1
+  11              		.globl	_lseek
+  13              	_lseek:
+  14              	.LFB1:
+  15              		.file 1 "../../firmware/RISCV/stubs/lseek.c"
+   1:../../firmware/RISCV/stubs/lseek.c **** /* See LICENSE of license details. */
+   2:../../firmware/RISCV/stubs/lseek.c **** 
+   3:../../firmware/RISCV/stubs/lseek.c **** #include <errno.h>
+   4:../../firmware/RISCV/stubs/lseek.c **** #include <unistd.h>
+   5:../../firmware/RISCV/stubs/lseek.c **** #include <sys/types.h>
+   6:../../firmware/RISCV/stubs/lseek.c **** #include "stub.h"
+   7:../../firmware/RISCV/stubs/lseek.c **** 
+   8:../../firmware/RISCV/stubs/lseek.c **** off_t _lseek(int fd, off_t ptr, int dir)
+   9:../../firmware/RISCV/stubs/lseek.c **** {
+  16              		.loc 1 9 1
+  17              		.cfi_startproc
+  18              	.LVL0:
+  10:../../firmware/RISCV/stubs/lseek.c ****   if (isatty(fd))
+  19              		.loc 1 10 3
+   9:../../firmware/RISCV/stubs/lseek.c ****   if (isatty(fd))
+  20              		.loc 1 9 1 is_stmt 0
+  21 0000 4111     		addi	sp,sp,-16
+  22              	.LCFI0:
+  23              		.cfi_def_cfa_offset 16
+  24 0002 06C6     		sw	ra,12(sp)
+  25              		.cfi_offset 1, -4
+  26              		.loc 1 10 7
+  27 0004 97000000 		call	isatty
+  27      E7800000 
+  28              	.LVL1:
+  11:../../firmware/RISCV/stubs/lseek.c ****     return 0;
+  12:../../firmware/RISCV/stubs/lseek.c **** 
+  13:../../firmware/RISCV/stubs/lseek.c ****   return _stub(EBADF);
+  14:../../firmware/RISCV/stubs/lseek.c **** }
+  29              		.loc 1 14 1
+  30 000c B240     		lw	ra,12(sp)
+  31              		.cfi_restore 1
+  10:../../firmware/RISCV/stubs/lseek.c ****     return 0;
+  32              		.loc 1 10 6
+  33 000e 13351500 		seqz	a0,a0
+  34              		.loc 1 14 1
+  35 0012 3305A040 		neg	a0,a0
+  36 0016 4101     		addi	sp,sp,16
+  37              	.LCFI1:
+  38              		.cfi_def_cfa_offset 0
+  39 0018 8280     		jr	ra
+  40              		.cfi_endproc
+  41              	.LFE1:
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s 			page 2
+
+
+  43              		.text
+  44              	.Letext0:
+  45              		.file 2 "c:\\users\\elias\\desktop\\fft\\projektet\\toolchain-gd32v-win\\compiler\\lib\\gcc\\riscv
+  46              		.file 3 "c:\\users\\elias\\desktop\\fft\\projektet\\toolchain-gd32v-win\\compiler\\riscv64-unknown
+  47              		.file 4 "c:\\users\\elias\\desktop\\fft\\projektet\\toolchain-gd32v-win\\compiler\\riscv64-unknown
+  48              		.file 5 "c:\\users\\elias\\desktop\\fft\\projektet\\toolchain-gd32v-win\\compiler\\riscv64-unknown
+  49              		.file 6 "c:\\users\\elias\\desktop\\fft\\projektet\\toolchain-gd32v-win\\compiler\\riscv64-unknown
+  50              		.file 7 "c:\\users\\elias\\desktop\\fft\\projektet\\toolchain-gd32v-win\\compiler\\riscv64-unknown
+  51              		.file 8 "c:\\users\\elias\\desktop\\fft\\projektet\\toolchain-gd32v-win\\compiler\\riscv64-unknown
+  52              		.file 9 "../../firmware/RISCV/stubs/stub.h"
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s 			page 3
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 lseek.c
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:13     .text._lseek:0000000000000000 _lseek
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:17     .text._lseek:0000000000000000 .L0 
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:19     .text._lseek:0000000000000000 .L0 
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:20     .text._lseek:0000000000000000 .L0 
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:21     .text._lseek:0000000000000000 .L0 
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:23     .text._lseek:0000000000000002 .L0 
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:25     .text._lseek:0000000000000004 .L0 
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:27     .text._lseek:0000000000000004 .L0 
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:30     .text._lseek:000000000000000c .L0 
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:31     .text._lseek:000000000000000e .L0 
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:33     .text._lseek:000000000000000e .L0 
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:35     .text._lseek:0000000000000012 .L0 
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:38     .text._lseek:0000000000000018 .L0 
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:40     .text._lseek:000000000000001a .L0 
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:43     .text._lseek:000000000000001a .L0 
+                     .debug_frame:0000000000000000 .L0 
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:1600   .debug_abbrev:0000000000000000 .Ldebug_abbrev0
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2361   .debug_str:0000000000000317 .LASF130
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2319   .debug_str:0000000000000242 .LASF131
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2219   .debug_str:000000000000001b .LASF132
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2205   .debug_ranges:0000000000000000 .Ldebug_ranges0
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2211   .debug_line:0000000000000000 .Ldebug_line0
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2305   .debug_str:0000000000000200 .LASF0
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2247   .debug_str:00000000000000f9 .LASF1
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2355   .debug_str:00000000000002fd .LASF2
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2339   .debug_str:00000000000002be .LASF10
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2249   .debug_str:0000000000000107 .LASF3
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2375   .debug_str:00000000000003d0 .LASF4
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2381   .debug_str:00000000000003ec .LASF5
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2325   .debug_str:0000000000000273 .LASF6
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2265   .debug_str:000000000000014c .LASF7
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2313   .debug_str:0000000000000224 .LASF8
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2233   .debug_str:00000000000000a2 .LASF9
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2369   .debug_str:00000000000003ad .LASF11
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2215   .debug_str:000000000000000c .LASF12
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2427   .debug_str:00000000000004be .LASF13
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2461   .debug_str:0000000000000553 .LASF14
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2335   .debug_str:00000000000002b0 .LASF15
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2307   .debug_str:000000000000020d .LASF16
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2419   .debug_str:000000000000049c .LASF17
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2421   .debug_str:00000000000004a4 .LASF18
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2391   .debug_str:0000000000000414 .LASF19
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2447   .debug_str:0000000000000509 .LASF20
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2373   .debug_str:00000000000003be .LASF21
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2291   .debug_str:00000000000001c3 .LASF22
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2295   .debug_str:00000000000001d4 .LASF27
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2439   .debug_str:00000000000004e8 .LASF23
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2413   .debug_str:0000000000000487 .LASF24
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2289   .debug_str:00000000000001bd .LASF25
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2455   .debug_str:000000000000053e .LASF26
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2303   .debug_str:00000000000001fb .LASF28
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2245   .debug_str:00000000000000f0 .LASF29
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2433   .debug_str:00000000000004d2 .LASF30
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2255   .debug_str:000000000000011f .LASF31
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2485   .debug_str:00000000000005be .LASF32
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s 			page 4
+
+
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2363   .debug_str:0000000000000391 .LASF33
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2349   .debug_str:00000000000002e3 .LASF34
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2457   .debug_str:0000000000000543 .LASF35
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2383   .debug_str:00000000000003f6 .LASF36
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2471   .debug_str:000000000000057e .LASF37
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2259   .debug_str:000000000000012e .LASF38
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2285   .debug_str:00000000000001b0 .LASF39
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2213   .debug_str:0000000000000000 .LASF40
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2443   .debug_str:00000000000004fb .LASF41
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2269   .debug_str:000000000000015c .LASF42
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2365   .debug_str:000000000000039a .LASF43
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2405   .debug_str:0000000000000457 .LASF44
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2287   .debug_str:00000000000001b8 .LASF45
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2385   .debug_str:0000000000000400 .LASF46
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2253   .debug_str:0000000000000119 .LASF47
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2221   .debug_str:0000000000000063 .LASF48
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2393   .debug_str:000000000000041f .LASF49
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2267   .debug_str:0000000000000155 .LASF50
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2315   .debug_str:0000000000000236 .LASF51
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2235   .debug_str:00000000000000b9 .LASF52
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2261   .debug_str:000000000000013c .LASF53
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2299   .debug_str:00000000000001eb .LASF54
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2347   .debug_str:00000000000002dc .LASF55
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2423   .debug_str:00000000000004ac .LASF56
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2475   .debug_str:0000000000000598 .LASF57
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2251   .debug_str:0000000000000113 .LASF58
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2467   .debug_str:0000000000000570 .LASF59
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2273   .debug_str:000000000000016b .LASF60
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2279   .debug_str:0000000000000189 .LASF61
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2227   .debug_str:000000000000007c .LASF62
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2341   .debug_str:00000000000002c5 .LASF63
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2397   .debug_str:0000000000000431 .LASF64
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2343   .debug_str:00000000000002cb .LASF65
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2415   .debug_str:000000000000048f .LASF66
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2429   .debug_str:00000000000004c6 .LASF67
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2271   .debug_str:0000000000000164 .LASF68
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2309   .debug_str:0000000000000214 .LASF69
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2293   .debug_str:00000000000001cc .LASF70
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2403   .debug_str:0000000000000452 .LASF71
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2225   .debug_str:0000000000000071 .LASF72
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2411   .debug_str:000000000000046e .LASF73
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2407   .debug_str:000000000000045c .LASF74
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2367   .debug_str:00000000000003a2 .LASF75
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2409   .debug_str:0000000000000464 .LASF76
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2333   .debug_str:00000000000002a8 .LASF77
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2301   .debug_str:00000000000001f1 .LASF78
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2483   .debug_str:00000000000005b9 .LASF79
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2371   .debug_str:00000000000003b4 .LASF80
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2311   .debug_str:000000000000021c .LASF81
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2277   .debug_str:0000000000000181 .LASF82
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2377   .debug_str:00000000000003de .LASF83
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2327   .debug_str:0000000000000286 .LASF84
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2465   .debug_str:0000000000000566 .LASF85
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2263   .debug_str:0000000000000144 .LASF86
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2257   .debug_str:0000000000000129 .LASF87
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2431   .debug_str:00000000000004cd .LASF88
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2389   .debug_str:000000000000040d .LASF89
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s 			page 5
+
+
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2459   .debug_str:000000000000054d .LASF90
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2321   .debug_str:0000000000000265 .LASF91
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2387   .debug_str:0000000000000407 .LASF92
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2223   .debug_str:0000000000000069 .LASF93
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2417   .debug_str:0000000000000496 .LASF94
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2437   .debug_str:00000000000004e2 .LASF95
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2445   .debug_str:0000000000000504 .LASF96
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2453   .debug_str:0000000000000531 .LASF97
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2441   .debug_str:00000000000004ee .LASF98
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2331   .debug_str:000000000000029b .LASF99
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2473   .debug_str:0000000000000589 .LASF100
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2297   .debug_str:00000000000001dc .LASF101
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2399   .debug_str:000000000000043a .LASF102
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2477   .debug_str:000000000000059f .LASF103
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2401   .debug_str:0000000000000445 .LASF104
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2481   .debug_str:00000000000005ab .LASF105
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2243   .debug_str:00000000000000e2 .LASF106
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2463   .debug_str:000000000000055c .LASF107
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2329   .debug_str:000000000000028f .LASF108
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2449   .debug_str:0000000000000511 .LASF109
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2283   .debug_str:00000000000001a2 .LASF110
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2241   .debug_str:00000000000000d3 .LASF111
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2281   .debug_str:0000000000000191 .LASF112
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2229   .debug_str:0000000000000082 .LASF113
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2231   .debug_str:0000000000000091 .LASF114
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2379   .debug_str:00000000000003e3 .LASF115
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2359   .debug_str:0000000000000310 .LASF116
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2351   .debug_str:00000000000002ed .LASF117
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2469   .debug_str:0000000000000576 .LASF118
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2237   .debug_str:00000000000000c2 .LASF133
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2425   .debug_str:00000000000004b2 .LASF119
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2451   .debug_str:000000000000051e .LASF120
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2275   .debug_str:0000000000000174 .LASF121
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2395   .debug_str:0000000000000427 .LASF122
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2317   .debug_str:000000000000023c .LASF123
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2337   .debug_str:00000000000002b6 .LASF124
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2353   .debug_str:00000000000002f6 .LASF125
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2357   .debug_str:0000000000000309 .LASF126
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2435   .debug_str:00000000000004db .LASF127
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2479   .debug_str:00000000000005a4 .LASF128
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2345   .debug_str:00000000000002d3 .LASF129
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2323   .debug_str:000000000000026c .LASF134
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:14     .text._lseek:0000000000000000 .LFB1
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:41     .text._lseek:000000000000001a .LFE1
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2132   .debug_loc:0000000000000000 .LLST0
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2150   .debug_loc:000000000000002c .LLST1
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2164   .debug_loc:000000000000004d .LLST2
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2178   .debug_loc:000000000000006e .LLST3
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:28     .text._lseek:000000000000000c .LVL1
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2239   .debug_str:00000000000000cd .LASF135
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:2217   .debug_str:0000000000000014 .LASF136
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:22     .text._lseek:0000000000000002 .LCFI0
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:37     .text._lseek:0000000000000018 .LCFI1
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:18     .text._lseek:0000000000000000 .LVL0
+C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s:54     .debug_info:0000000000000000 .Ldebug_info0
+
+UNDEFINED SYMBOLS
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccxBBGDj.s 			page 6
+
+
+isatty

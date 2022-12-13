@@ -1,0 +1,985 @@
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s 			page 1
+
+
+   1              		.file	"main.c"
+   2              		.option nopic
+   3              		.attribute arch, "rv32i2p0_m2p0_a2p0_c2p0"
+   4              		.attribute unaligned_access, 0
+   5              		.attribute stack_align, 16
+   6              		.text
+   7              	.Ltext0:
+   8              		.cfi_sections	.debug_frame
+   9              		.globl	__floatundidf
+  10              		.globl	__floatunsidf
+  11              		.globl	__divdf3
+  12              		.globl	__muldf3
+  13              		.globl	__ltdf2
+  14              		.section	.text.delay_01us,"ax",@progbits
+  15              		.align	1
+  16              		.globl	delay_01us
+  18              	delay_01us:
+  19              	.LFB3:
+  20              		.file 1 "main.c"
+   1:main.c        **** #include "gd32vf103.h"
+   2:main.c        **** #include "lcd.h"
+   3:main.c        **** #include "adc.h"
+   4:main.c        **** #include "stdint.h"
+   5:main.c        **** #include "fft.h"
+   6:main.c        **** #include "cordic-math.h"
+   7:main.c        **** 
+   8:main.c        **** #define WavePoints 128 
+   9:main.c        **** //#define FrequencyOne 32000 
+  10:main.c        **** //#define FrequencyTwo 6400000
+  11:main.c        **** static const uint32_t Alpha = (2*3.14*256);
+  12:main.c        **** 
+  13:main.c        **** void delay_01us(uint32_t count);
+  14:main.c        **** 
+  15:main.c        **** int main(void){
+  16:main.c        ****   
+  17:main.c        ****   ADC3powerUpInit(1);                       
+  18:main.c        ****   Lcd_SetType(LCD_INVERTED);                
+  19:main.c        ****   Lcd_Init();                               
+  20:main.c        ****   LCD_Clear(BLACK);                         
+  21:main.c        ****   
+  22:main.c        ****   int adcValues = 0;
+  23:main.c        ****   Complex waveSample[WavePoints];
+  24:main.c        ****   
+  25:main.c        ****   for (int i = 0; i < WavePoints; i++){
+  26:main.c        ****     waveSample[i].real=0;
+  27:main.c        ****     waveSample[i].imag=0;
+  28:main.c        ****   }
+  29:main.c        **** 
+  30:main.c        ****   /* 
+  31:main.c        ****   cordic_sin(to_degree(Alpha * FrequencyOne * adcValues / (WavePoints))) + 
+  32:main.c        ****   cordic_sin(to_degree(Alpha * FrequencyTwo * adcValues / (WavePoints))); 
+  33:main.c        ****   */
+  34:main.c        **** 
+  35:main.c        ****   while(1)
+  36:main.c        ****   {
+  37:main.c        ****     if(adc_flag_get(ADC0,ADC_FLAG_EOC)==SET){        
+  38:main.c        ****         waveSample[adcValues].real = ((((adc_regular_data_read(ADC0))/5) <<8)/1241);
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s 			page 2
+
+
+  39:main.c        ****         waveSample[adcValues].imag = 0;
+  40:main.c        ****         adcValues++;
+  41:main.c        ****         delay_01us(15);
+  42:main.c        ****       if (adcValues >= WavePoints){
+  43:main.c        ****         fft(waveSample, WavePoints);
+  44:main.c        ****         for (int i = 0; i < WavePoints/2; i++){
+  45:main.c        ****           LCD_DrawLine(i*2, 70, i*2, (70-(cordic_hypotenuse(((waveSample[i].imag * 2) / WavePoints)
+  46:main.c        ****           LCD_Wait_On_Queue();
+  47:main.c        ****         }
+  48:main.c        ****         LCD_Clear(BLACK);
+  49:main.c        ****         adcValues = 0;
+  50:main.c        ****       }
+  51:main.c        ****       adc_software_trigger_enable(ADC0,ADC_REGULAR_CHANNEL);
+  52:main.c        ****     }
+  53:main.c        ****   }
+  54:main.c        **** }
+  55:main.c        **** 
+  56:main.c        **** /***************DELAY FUNCTION*******************************************/
+  57:main.c        **** void delay_01us(uint32_t count)
+  58:main.c        **** {
+  21              		.loc 1 58 1
+  22              		.cfi_startproc
+  23              	.LVL0:
+  59:main.c        **** 	uint64_t start_mtime, delta_mtime;
+  24              		.loc 1 59 2
+  60:main.c        **** 
+  61:main.c        **** 	// Don't start measuruing until we see an mtime tick
+  62:main.c        **** 	uint64_t tmp = get_timer_value();
+  25              		.loc 1 62 2
+  58:main.c        **** 	uint64_t start_mtime, delta_mtime;
+  26              		.loc 1 58 1 is_stmt 0
+  27 0000 7971     		addi	sp,sp,-48
+  28              	.LCFI0:
+  29              		.cfi_def_cfa_offset 48
+  30 0002 4AD0     		sw	s2,32(sp)
+  31 0004 4ECE     		sw	s3,28(sp)
+  32 0006 5EC6     		sw	s7,12(sp)
+  33 0008 06D6     		sw	ra,44(sp)
+  34 000a 22D4     		sw	s0,40(sp)
+  35 000c 26D2     		sw	s1,36(sp)
+  36 000e 52CC     		sw	s4,24(sp)
+  37 0010 56CA     		sw	s5,20(sp)
+  38 0012 5AC8     		sw	s6,16(sp)
+  39 0014 62C4     		sw	s8,8(sp)
+  40 0016 66C2     		sw	s9,4(sp)
+  41              		.cfi_offset 18, -16
+  42              		.cfi_offset 19, -20
+  43              		.cfi_offset 23, -36
+  44              		.cfi_offset 1, -4
+  45              		.cfi_offset 8, -8
+  46              		.cfi_offset 9, -12
+  47              		.cfi_offset 20, -24
+  48              		.cfi_offset 21, -28
+  49              		.cfi_offset 22, -32
+  50              		.cfi_offset 24, -40
+  51              		.cfi_offset 25, -44
+  58:main.c        **** 	uint64_t start_mtime, delta_mtime;
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s 			page 3
+
+
+  52              		.loc 1 58 1
+  53 0018 AA8B     		mv	s7,a0
+  54              		.loc 1 62 17
+  55 001a 97000000 		call	get_timer_value
+  55      E7800000 
+  56              	.LVL1:
+  57 0022 2A89     		mv	s2,a0
+  58 0024 AE89     		mv	s3,a1
+  59              	.LVL2:
+  60              	.L2:
+  63:main.c        **** 	do{
+  61              		.loc 1 63 2 is_stmt 1 discriminator 1
+  64:main.c        **** 	    start_mtime = get_timer_value();
+  62              		.loc 1 64 6 discriminator 1
+  63              		.loc 1 64 20 is_stmt 0 discriminator 1
+  64 0026 97000000 		call	get_timer_value
+  64      E7800000 
+  65              	.LVL3:
+  66 002e 2A84     		mv	s0,a0
+  67 0030 AE84     		mv	s1,a1
+  68              	.LVL4:
+  65:main.c        **** 	}while (start_mtime == tmp);
+  69              		.loc 1 65 2 discriminator 1
+  70 0032 6314A900 		bne	s2,a0,.L3
+  71 0036 E388B9FE 		beq	s3,a1,.L2
+  72              	.L3:
+  73 003a B7070000 		lui	a5,%hi(.LC0)
+  66:main.c        **** 
+  67:main.c        **** 	do{
+  68:main.c        **** 	    delta_mtime = get_timer_value() - start_mtime;
+  69:main.c        **** 	}while(delta_mtime <(SystemCoreClock/4000000.0 *count ));
+  74              		.loc 1 69 38 discriminator 1
+  75 003e 03A90700 		lw	s2,%lo(.LC0)(a5)
+  76              	.LVL5:
+  77 0042 83A94700 		lw	s3,%lo(.LC0+4)(a5)
+  78 0046 370B0000 		lui	s6,%hi(SystemCoreClock)
+  79              	.L4:
+  67:main.c        **** 	    delta_mtime = get_timer_value() - start_mtime;
+  80              		.loc 1 67 2 is_stmt 1 discriminator 1
+  68:main.c        **** 	}while(delta_mtime <(SystemCoreClock/4000000.0 *count ));
+  81              		.loc 1 68 6 discriminator 1
+  68:main.c        **** 	}while(delta_mtime <(SystemCoreClock/4000000.0 *count ));
+  82              		.loc 1 68 20 is_stmt 0 discriminator 1
+  83 004a 97000000 		call	get_timer_value
+  83      E7800000 
+  84              	.LVL6:
+  85 0052 AA87     		mv	a5,a0
+  86              	.LVL7:
+  68:main.c        **** 	}while(delta_mtime <(SystemCoreClock/4000000.0 *count ));
+  87              		.loc 1 68 18 discriminator 1
+  88 0054 018D     		sub	a0,a0,s0
+  89              	.LVL8:
+  90 0056 B3B7A700 		sgtu	a5,a0,a5
+  91              	.LVL9:
+  92 005a 858D     		sub	a1,a1,s1
+  93              		.loc 1 69 21 discriminator 1
+  94 005c 9D8D     		sub	a1,a1,a5
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s 			page 4
+
+
+  95 005e 97000000 		call	__floatundidf
+  95      E7800000 
+  96              	.LVL10:
+  97 0066 2A8A     		mv	s4,a0
+  98              		.loc 1 69 38 discriminator 1
+  99 0068 03250B00 		lw	a0,%lo(SystemCoreClock)(s6)
+ 100              		.loc 1 69 21 discriminator 1
+ 101 006c AE8A     		mv	s5,a1
+ 102              		.loc 1 69 38 discriminator 1
+ 103 006e 97000000 		call	__floatunsidf
+ 103      E7800000 
+ 104              	.LVL11:
+ 105 0076 4A86     		mv	a2,s2
+ 106 0078 CE86     		mv	a3,s3
+ 107 007a 97000000 		call	__divdf3
+ 107      E7800000 
+ 108              	.LVL12:
+ 109 0082 2A8C     		mv	s8,a0
+ 110              		.loc 1 69 49 discriminator 1
+ 111 0084 5E85     		mv	a0,s7
+ 112              		.loc 1 69 38 discriminator 1
+ 113 0086 AE8C     		mv	s9,a1
+ 114              		.loc 1 69 49 discriminator 1
+ 115 0088 97000000 		call	__floatunsidf
+ 115      E7800000 
+ 116              	.LVL13:
+ 117 0090 2A86     		mv	a2,a0
+ 118 0092 AE86     		mv	a3,a1
+ 119 0094 6285     		mv	a0,s8
+ 120 0096 E685     		mv	a1,s9
+ 121 0098 97000000 		call	__muldf3
+ 121      E7800000 
+ 122              	.LVL14:
+ 123              		.loc 1 69 2 discriminator 1
+ 124 00a0 2A86     		mv	a2,a0
+ 125 00a2 AE86     		mv	a3,a1
+ 126 00a4 5285     		mv	a0,s4
+ 127 00a6 D685     		mv	a1,s5
+ 128 00a8 97000000 		call	__ltdf2
+ 128      E7800000 
+ 129              	.LVL15:
+ 130 00b0 E34D05F8 		blt	a0,zero,.L4
+  70:main.c        **** } ...
+ 131              		.loc 1 70 1
+ 132 00b4 B250     		lw	ra,44(sp)
+ 133              		.cfi_restore 1
+ 134 00b6 2254     		lw	s0,40(sp)
+ 135              		.cfi_restore 8
+ 136              	.LVL16:
+ 137 00b8 9254     		lw	s1,36(sp)
+ 138              		.cfi_restore 9
+ 139 00ba 0259     		lw	s2,32(sp)
+ 140              		.cfi_restore 18
+ 141 00bc F249     		lw	s3,28(sp)
+ 142              		.cfi_restore 19
+ 143 00be 624A     		lw	s4,24(sp)
+ 144              		.cfi_restore 20
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s 			page 5
+
+
+ 145 00c0 D24A     		lw	s5,20(sp)
+ 146              		.cfi_restore 21
+ 147 00c2 424B     		lw	s6,16(sp)
+ 148              		.cfi_restore 22
+ 149 00c4 B24B     		lw	s7,12(sp)
+ 150              		.cfi_restore 23
+ 151              	.LVL17:
+ 152 00c6 224C     		lw	s8,8(sp)
+ 153              		.cfi_restore 24
+ 154 00c8 924C     		lw	s9,4(sp)
+ 155              		.cfi_restore 25
+ 156 00ca 4561     		addi	sp,sp,48
+ 157              	.LCFI1:
+ 158              		.cfi_def_cfa_offset 0
+ 159 00cc 8280     		jr	ra
+ 160              		.cfi_endproc
+ 161              	.LFE3:
+ 163              		.section	.text.startup.main,"ax",@progbits
+ 164              		.align	1
+ 165              		.globl	main
+ 167              	main:
+ 168              	.LFB2:
+  15:main.c        **** int main(void){
+ 169              		.loc 1 15 15 is_stmt 1
+ 170              		.cfi_startproc
+  17:main.c        ****   ADC3powerUpInit(1);                       
+ 171              		.loc 1 17 3
+  15:main.c        **** int main(void){
+ 172              		.loc 1 15 15 is_stmt 0
+ 173 0000 130101BD 		addi	sp,sp,-1072
+ 174              	.LCFI2:
+ 175              		.cfi_def_cfa_offset 1072
+  17:main.c        ****   ADC3powerUpInit(1);                       
+ 176              		.loc 1 17 3
+ 177 0004 0545     		li	a0,1
+  15:main.c        **** int main(void){
+ 178              		.loc 1 15 15
+ 179 0006 23261142 		sw	ra,1068(sp)
+ 180 000a 23248142 		sw	s0,1064(sp)
+ 181 000e 23229142 		sw	s1,1060(sp)
+ 182 0012 23202143 		sw	s2,1056(sp)
+ 183 0016 232E3141 		sw	s3,1052(sp)
+ 184 001a 232C4141 		sw	s4,1048(sp)
+ 185 001e 232A5141 		sw	s5,1044(sp)
+ 186 0022 23286141 		sw	s6,1040(sp)
+ 187 0026 23267141 		sw	s7,1036(sp)
+ 188 002a 23248141 		sw	s8,1032(sp)
+ 189              		.cfi_offset 1, -4
+ 190              		.cfi_offset 8, -8
+ 191              		.cfi_offset 9, -12
+ 192              		.cfi_offset 18, -16
+ 193              		.cfi_offset 19, -20
+ 194              		.cfi_offset 20, -24
+ 195              		.cfi_offset 21, -28
+ 196              		.cfi_offset 22, -32
+ 197              		.cfi_offset 23, -36
+ 198              		.cfi_offset 24, -40
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s 			page 6
+
+
+  17:main.c        ****   ADC3powerUpInit(1);                       
+ 199              		.loc 1 17 3
+ 200 002e 97000000 		call	ADC3powerUpInit
+ 200      E7800000 
+ 201              	.LVL18:
+  18:main.c        ****   Lcd_SetType(LCD_INVERTED);                
+ 202              		.loc 1 18 3 is_stmt 1
+ 203 0036 0545     		li	a0,1
+ 204 0038 97000000 		call	Lcd_SetType
+ 204      E7800000 
+ 205              	.LVL19:
+  19:main.c        ****   Lcd_Init();                               
+ 206              		.loc 1 19 3
+ 207 0040 97000000 		call	Lcd_Init
+ 207      E7800000 
+ 208              	.LVL20:
+  20:main.c        ****   LCD_Clear(BLACK);                         
+ 209              		.loc 1 20 3
+ 210 0048 0145     		li	a0,0
+ 211 004a 97000000 		call	LCD_Clear
+ 211      E7800000 
+ 212              	.LVL21:
+  22:main.c        ****   int adcValues = 0;
+ 213              		.loc 1 22 3
+  23:main.c        ****   Complex waveSample[WavePoints];
+ 214              		.loc 1 23 3
+  25:main.c        ****   for (int i = 0; i < WavePoints; i++){
+ 215              		.loc 1 25 3
+ 216              	.LBB2:
+  25:main.c        ****   for (int i = 0; i < WavePoints; i++){
+ 217              		.loc 1 25 8
+ 218 0052 13070140 		addi	a4,sp,1024
+ 219              	.LBE2:
+  20:main.c        ****   LCD_Clear(BLACK);                         
+ 220              		.loc 1 20 3 is_stmt 0
+ 221 0056 8A87     		mv	a5,sp
+ 222              	.LVL22:
+ 223              	.L9:
+ 224              	.LBB3:
+  26:main.c        ****     waveSample[i].real=0;
+ 225              		.loc 1 26 5 is_stmt 1 discriminator 3
+  26:main.c        ****     waveSample[i].real=0;
+ 226              		.loc 1 26 23 is_stmt 0 discriminator 3
+ 227 0058 23A00700 		sw	zero,0(a5)
+  27:main.c        ****     waveSample[i].imag=0;
+ 228              		.loc 1 27 5 is_stmt 1 discriminator 3
+  27:main.c        ****     waveSample[i].imag=0;
+ 229              		.loc 1 27 23 is_stmt 0 discriminator 3
+ 230 005c 23A20700 		sw	zero,4(a5)
+ 231 0060 A107     		addi	a5,a5,8
+  25:main.c        ****   for (int i = 0; i < WavePoints; i++){
+ 232              		.loc 1 25 3 discriminator 3
+ 233 0062 E39BE7FE 		bne	a5,a4,.L9
+ 234              	.LBE3:
+  37:main.c        ****     if(adc_flag_get(ADC0,ADC_FLAG_EOC)==SET){        
+ 235              		.loc 1 37 8
+ 236 0066 B7290140 		li	s3,1073815552
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s 			page 7
+
+
+  22:main.c        ****   int adcValues = 0;
+ 237              		.loc 1 22 7
+ 238 006a 0144     		li	s0,0
+ 239 006c 13090120 		addi	s2,sp,512
+  37:main.c        ****     if(adc_flag_get(ADC0,ADC_FLAG_EOC)==SET){        
+ 240              		.loc 1 37 8
+ 241 0070 93890940 		addi	s3,s3,1024
+  37:main.c        ****     if(adc_flag_get(ADC0,ADC_FLAG_EOC)==SET){        
+ 242              		.loc 1 37 7
+ 243 0074 054A     		li	s4,1
+  38:main.c        ****         waveSample[adcValues].real = ((((adc_regular_data_read(ADC0))/5) <<8)/1241);
+ 244              		.loc 1 38 70
+ 245 0076 954B     		li	s7,5
+  38:main.c        ****         waveSample[adcValues].real = ((((adc_regular_data_read(ADC0))/5) <<8)/1241);
+ 246              		.loc 1 38 78
+ 247 0078 130B904D 		li	s6,1241
+  42:main.c        ****       if (adcValues >= WavePoints){
+ 248              		.loc 1 42 10
+ 249 007c 930AF007 		li	s5,127
+ 250              	.LBB4:
+  45:main.c        ****           LCD_DrawLine(i*2, 70, i*2, (70-(cordic_hypotenuse(((waveSample[i].imag * 2) / WavePoints)
+ 251              		.loc 1 45 41
+ 252 0080 93046004 		li	s1,70
+ 253              	.LVL23:
+ 254              	.L10:
+ 255              	.LBE4:
+  35:main.c        ****   while(1)
+ 256              		.loc 1 35 3 is_stmt 1
+  37:main.c        ****     if(adc_flag_get(ADC0,ADC_FLAG_EOC)==SET){        
+ 257              		.loc 1 37 5
+  37:main.c        ****     if(adc_flag_get(ADC0,ADC_FLAG_EOC)==SET){        
+ 258              		.loc 1 37 8 is_stmt 0
+ 259 0084 8945     		li	a1,2
+ 260 0086 4E85     		mv	a0,s3
+ 261 0088 97000000 		call	adc_flag_get
+ 261      E7800000 
+ 262              	.LVL24:
+  37:main.c        ****     if(adc_flag_get(ADC0,ADC_FLAG_EOC)==SET){        
+ 263              		.loc 1 37 7
+ 264 0090 E31A45FF 		bne	a0,s4,.L10
+  38:main.c        ****         waveSample[adcValues].real = ((((adc_regular_data_read(ADC0))/5) <<8)/1241);
+ 265              		.loc 1 38 9 is_stmt 1
+  38:main.c        ****         waveSample[adcValues].real = ((((adc_regular_data_read(ADC0))/5) <<8)/1241);
+ 266              		.loc 1 38 42 is_stmt 0
+ 267 0094 4E85     		mv	a0,s3
+ 268 0096 97000000 		call	adc_regular_data_read
+ 268      E7800000 
+ 269              	.LVL25:
+  38:main.c        ****         waveSample[adcValues].real = ((((adc_regular_data_read(ADC0))/5) <<8)/1241);
+ 270              		.loc 1 38 70
+ 271 009e B3577503 		divu	a5,a0,s7
+  38:main.c        ****         waveSample[adcValues].real = ((((adc_regular_data_read(ADC0))/5) <<8)/1241);
+ 272              		.loc 1 38 36
+ 273 00a2 13173400 		slli	a4,s0,3
+ 274 00a6 93060140 		addi	a3,sp,1024
+ 275 00aa 3697     		add	a4,a3,a4
+  40:main.c        ****         adcValues++;
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s 			page 8
+
+
+ 276              		.loc 1 40 18
+ 277 00ac 0504     		addi	s0,s0,1
+ 278              	.LVL26:
+  41:main.c        ****         delay_01us(15);
+ 279              		.loc 1 41 9
+ 280 00ae 3D45     		li	a0,15
+  39:main.c        ****         waveSample[adcValues].imag = 0;
+ 281              		.loc 1 39 36
+ 282 00b0 232207C0 		sw	zero,-1020(a4)
+  38:main.c        ****         waveSample[adcValues].real = ((((adc_regular_data_read(ADC0))/5) <<8)/1241);
+ 283              		.loc 1 38 70
+ 284 00b4 C207     		slli	a5,a5,16
+ 285 00b6 C183     		srli	a5,a5,16
+  38:main.c        ****         waveSample[adcValues].real = ((((adc_regular_data_read(ADC0))/5) <<8)/1241);
+ 286              		.loc 1 38 74
+ 287 00b8 A207     		slli	a5,a5,8
+  38:main.c        ****         waveSample[adcValues].real = ((((adc_regular_data_read(ADC0))/5) <<8)/1241);
+ 288              		.loc 1 38 78
+ 289 00ba B3C76703 		div	a5,a5,s6
+  38:main.c        ****         waveSample[adcValues].real = ((((adc_regular_data_read(ADC0))/5) <<8)/1241);
+ 290              		.loc 1 38 36
+ 291 00be 2320F7C0 		sw	a5,-1024(a4)
+  39:main.c        ****         waveSample[adcValues].imag = 0;
+ 292              		.loc 1 39 9 is_stmt 1
+  40:main.c        ****         adcValues++;
+ 293              		.loc 1 40 9
+ 294              	.LVL27:
+  41:main.c        ****         delay_01us(15);
+ 295              		.loc 1 41 9
+ 296 00c2 97000000 		call	delay_01us
+ 296      E7800000 
+ 297              	.LVL28:
+  42:main.c        ****       if (adcValues >= WavePoints){
+ 298              		.loc 1 42 7
+  42:main.c        ****       if (adcValues >= WavePoints){
+ 299              		.loc 1 42 10 is_stmt 0
+ 300 00ca 63D98A06 		ble	s0,s5,.L11
+  43:main.c        ****         fft(waveSample, WavePoints);
+ 301              		.loc 1 43 9 is_stmt 1
+ 302 00ce 93050008 		li	a1,128
+ 303 00d2 0A85     		mv	a0,sp
+ 304 00d4 97000000 		call	fft
+ 304      E7800000 
+ 305              	.LVL29:
+  44:main.c        ****         for (int i = 0; i < WavePoints/2; i++){
+ 306              		.loc 1 44 9
+ 307              	.LBB5:
+  44:main.c        ****         for (int i = 0; i < WavePoints/2; i++){
+ 308              		.loc 1 44 14
+ 309              	.LBE5:
+  43:main.c        ****         fft(waveSample, WavePoints);
+ 310              		.loc 1 43 9 is_stmt 0
+ 311 00dc 0A8C     		mv	s8,sp
+ 312 00de 0144     		li	s0,0
+ 313              	.LVL30:
+ 314              	.L12:
+ 315              	.LBB6:
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s 			page 9
+
+
+  45:main.c        ****           LCD_DrawLine(i*2, 70, i*2, (70-(cordic_hypotenuse(((waveSample[i].imag * 2) / WavePoints)
+ 316              		.loc 1 45 11 is_stmt 1 discriminator 3
+  45:main.c        ****           LCD_DrawLine(i*2, 70, i*2, (70-(cordic_hypotenuse(((waveSample[i].imag * 2) / WavePoints)
+ 317              		.loc 1 45 128 is_stmt 0 discriminator 3
+ 318 00e0 03270C00 		lw	a4,0(s8)
+  45:main.c        ****           LCD_DrawLine(i*2, 70, i*2, (70-(cordic_hypotenuse(((waveSample[i].imag * 2) / WavePoints)
+ 319              		.loc 1 45 87 discriminator 3
+ 320 00e4 83274C00 		lw	a5,4(s8)
+ 321 00e8 210C     		addi	s8,s8,8
+  45:main.c        ****           LCD_DrawLine(i*2, 70, i*2, (70-(cordic_hypotenuse(((waveSample[i].imag * 2) / WavePoints)
+ 322              		.loc 1 45 128 discriminator 3
+ 323 00ea 9355F741 		srai	a1,a4,31
+  45:main.c        ****           LCD_DrawLine(i*2, 70, i*2, (70-(cordic_hypotenuse(((waveSample[i].imag * 2) / WavePoints)
+ 324              		.loc 1 45 87 discriminator 3
+ 325 00ee 13D5F741 		srai	a0,a5,31
+  45:main.c        ****           LCD_DrawLine(i*2, 70, i*2, (70-(cordic_hypotenuse(((waveSample[i].imag * 2) / WavePoints)
+ 326              		.loc 1 45 128 discriminator 3
+ 327 00f2 93F5F503 		andi	a1,a1,63
+  45:main.c        ****           LCD_DrawLine(i*2, 70, i*2, (70-(cordic_hypotenuse(((waveSample[i].imag * 2) / WavePoints)
+ 328              		.loc 1 45 87 discriminator 3
+ 329 00f6 1375F503 		andi	a0,a0,63
+  45:main.c        ****           LCD_DrawLine(i*2, 70, i*2, (70-(cordic_hypotenuse(((waveSample[i].imag * 2) / WavePoints)
+ 330              		.loc 1 45 128 discriminator 3
+ 331 00fa BA95     		add	a1,a1,a4
+  45:main.c        ****           LCD_DrawLine(i*2, 70, i*2, (70-(cordic_hypotenuse(((waveSample[i].imag * 2) / WavePoints)
+ 332              		.loc 1 45 87 discriminator 3
+ 333 00fc 3E95     		add	a0,a0,a5
+  45:main.c        ****           LCD_DrawLine(i*2, 70, i*2, (70-(cordic_hypotenuse(((waveSample[i].imag * 2) / WavePoints)
+ 334              		.loc 1 45 43 discriminator 3
+ 335 00fe 9985     		srai	a1,a1,6
+ 336 0100 1985     		srai	a0,a0,6
+ 337 0102 97000000 		call	cordic_hypotenuse
+ 337      E7800000 
+ 338              	.LVL31:
+  45:main.c        ****           LCD_DrawLine(i*2, 70, i*2, (70-(cordic_hypotenuse(((waveSample[i].imag * 2) / WavePoints)
+ 339              		.loc 1 45 11 discriminator 3
+ 340 010a B386A440 		sub	a3,s1,a0
+ 341 010e 2286     		mv	a2,s0
+ 342 0110 2285     		mv	a0,s0
+ 343 0112 1307007E 		li	a4,2016
+ 344 0116 93056004 		li	a1,70
+ 345 011a 97000000 		call	LCD_DrawLine
+ 345      E7800000 
+ 346              	.LVL32:
+  46:main.c        ****           LCD_Wait_On_Queue();
+ 347              		.loc 1 46 11 is_stmt 1 discriminator 3
+ 348 0122 0904     		addi	s0,s0,2
+ 349 0124 97000000 		call	LCD_Wait_On_Queue
+ 349      E7800000 
+ 350              	.LVL33:
+  44:main.c        ****         for (int i = 0; i < WavePoints/2; i++){
+ 351              		.loc 1 44 9 is_stmt 0 discriminator 3
+ 352 012c E31A89FB 		bne	s2,s8,.L12
+ 353              	.LBE6:
+  48:main.c        ****         LCD_Clear(BLACK);
+ 354              		.loc 1 48 9 is_stmt 1
+ 355 0130 0145     		li	a0,0
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s 			page 10
+
+
+ 356 0132 97000000 		call	LCD_Clear
+ 356      E7800000 
+ 357              	.LVL34:
+  49:main.c        ****         adcValues = 0;
+ 358              		.loc 1 49 9
+  49:main.c        ****         adcValues = 0;
+ 359              		.loc 1 49 19 is_stmt 0
+ 360 013a 0144     		li	s0,0
+ 361              	.LVL35:
+ 362              	.L11:
+  51:main.c        ****       adc_software_trigger_enable(ADC0,ADC_REGULAR_CHANNEL);
+ 363              		.loc 1 51 7 is_stmt 1
+ 364 013c 8545     		li	a1,1
+ 365 013e 4E85     		mv	a0,s3
+ 366 0140 97000000 		call	adc_software_trigger_enable
+ 366      E7800000 
+ 367              	.LVL36:
+ 368 0148 35BF     		j	.L10
+ 369              		.cfi_endproc
+ 370              	.LFE2:
+ 372              		.section	.rodata.delay_01us.cst8,"aM",@progbits,8
+ 373              		.align	3
+ 374              	.LC0:
+ 375 0000 00000000 		.word	0
+ 376 0004 80844E41 		.word	1095664768
+ 377              		.text
+ 378              	.Letext0:
+ 379              		.file 2 "c:\\users\\elias\\desktop\\fft\\projektet\\toolchain-gd32v-win\\compiler\\riscv64-unknown
+ 380              		.file 3 "c:\\users\\elias\\desktop\\fft\\projektet\\toolchain-gd32v-win\\compiler\\riscv64-unknown
+ 381              		.file 4 "c:\\users\\elias\\desktop\\fft\\projektet\\toolchain-gd32v-win\\compiler\\lib\\gcc\\riscv
+ 382              		.file 5 "c:\\users\\elias\\desktop\\fft\\projektet\\toolchain-gd32v-win\\compiler\\riscv64-unknown
+ 383              		.file 6 "c:\\users\\elias\\desktop\\fft\\projektet\\toolchain-gd32v-win\\compiler\\riscv64-unknown
+ 384              		.file 7 "c:\\users\\elias\\desktop\\fft\\projektet\\toolchain-gd32v-win\\compiler\\riscv64-unknown
+ 385              		.file 8 "../../firmware/GD32VF103_standard_peripheral/system_gd32vf103.h"
+ 386              		.file 9 "c:\\users\\elias\\desktop\\fft\\projektet\\toolchain-gd32v-win\\compiler\\riscv64-unknown
+ 387              		.file 10 "lcd.h"
+ 388              		.file 11 "fft.h"
+ 389              		.file 12 "../../firmware/RISCV/drivers/n200_func.h"
+ 390              		.file 13 "cordic-math.h"
+ 391              		.file 14 "adc.h"
+ 392              		.file 15 "../../firmware/GD32VF103_standard_peripheral/Include/gd32vf103_adc.h"
+ 393              		.file 16 "../../firmware/GD32VF103_standard_peripheral/gd32vf103.h"
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s 			page 11
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 main.c
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:18     .text.delay_01us:0000000000000000 delay_01us
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:22     .text.delay_01us:0000000000000000 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:24     .text.delay_01us:0000000000000000 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:25     .text.delay_01us:0000000000000000 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:26     .text.delay_01us:0000000000000000 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:27     .text.delay_01us:0000000000000000 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:29     .text.delay_01us:0000000000000002 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:41     .text.delay_01us:0000000000000018 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:42     .text.delay_01us:0000000000000018 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:43     .text.delay_01us:0000000000000018 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:44     .text.delay_01us:0000000000000018 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:45     .text.delay_01us:0000000000000018 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:46     .text.delay_01us:0000000000000018 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:47     .text.delay_01us:0000000000000018 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:48     .text.delay_01us:0000000000000018 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:49     .text.delay_01us:0000000000000018 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:50     .text.delay_01us:0000000000000018 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:51     .text.delay_01us:0000000000000018 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:53     .text.delay_01us:0000000000000018 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:55     .text.delay_01us:000000000000001a .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:62     .text.delay_01us:0000000000000026 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:63     .text.delay_01us:0000000000000026 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:64     .text.delay_01us:0000000000000026 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:70     .text.delay_01us:0000000000000032 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:75     .text.delay_01us:000000000000003e .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:81     .text.delay_01us:000000000000004a .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:82     .text.delay_01us:000000000000004a .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:83     .text.delay_01us:000000000000004a .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:88     .text.delay_01us:0000000000000054 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:94     .text.delay_01us:000000000000005c .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:99     .text.delay_01us:0000000000000068 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:101    .text.delay_01us:000000000000006c .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:103    .text.delay_01us:000000000000006e .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:111    .text.delay_01us:0000000000000084 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:113    .text.delay_01us:0000000000000086 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:115    .text.delay_01us:0000000000000088 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:124    .text.delay_01us:00000000000000a0 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:132    .text.delay_01us:00000000000000b4 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:133    .text.delay_01us:00000000000000b6 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:135    .text.delay_01us:00000000000000b8 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:138    .text.delay_01us:00000000000000ba .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:140    .text.delay_01us:00000000000000bc .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:142    .text.delay_01us:00000000000000be .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:144    .text.delay_01us:00000000000000c0 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:146    .text.delay_01us:00000000000000c2 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:148    .text.delay_01us:00000000000000c4 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:150    .text.delay_01us:00000000000000c6 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:153    .text.delay_01us:00000000000000c8 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:155    .text.delay_01us:00000000000000ca .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:158    .text.delay_01us:00000000000000cc .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:160    .text.delay_01us:00000000000000ce .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:167    .text.startup.main:0000000000000000 main
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:170    .text.startup.main:0000000000000000 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:171    .text.startup.main:0000000000000000 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:172    .text.startup.main:0000000000000000 .L0 
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s 			page 12
+
+
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:173    .text.startup.main:0000000000000000 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:175    .text.startup.main:0000000000000004 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:177    .text.startup.main:0000000000000004 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:179    .text.startup.main:0000000000000006 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:189    .text.startup.main:000000000000002e .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:190    .text.startup.main:000000000000002e .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:191    .text.startup.main:000000000000002e .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:192    .text.startup.main:000000000000002e .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:193    .text.startup.main:000000000000002e .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:194    .text.startup.main:000000000000002e .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:195    .text.startup.main:000000000000002e .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:196    .text.startup.main:000000000000002e .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:197    .text.startup.main:000000000000002e .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:198    .text.startup.main:000000000000002e .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:200    .text.startup.main:000000000000002e .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:203    .text.startup.main:0000000000000036 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:207    .text.startup.main:0000000000000040 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:210    .text.startup.main:0000000000000048 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:214    .text.startup.main:0000000000000052 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:215    .text.startup.main:0000000000000052 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:217    .text.startup.main:0000000000000052 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:218    .text.startup.main:0000000000000052 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:221    .text.startup.main:0000000000000056 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:226    .text.startup.main:0000000000000058 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:227    .text.startup.main:0000000000000058 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:229    .text.startup.main:000000000000005c .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:230    .text.startup.main:000000000000005c .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:233    .text.startup.main:0000000000000062 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:236    .text.startup.main:0000000000000066 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:238    .text.startup.main:000000000000006a .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:241    .text.startup.main:0000000000000070 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:243    .text.startup.main:0000000000000074 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:245    .text.startup.main:0000000000000076 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:247    .text.startup.main:0000000000000078 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:249    .text.startup.main:000000000000007c .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:252    .text.startup.main:0000000000000080 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:257    .text.startup.main:0000000000000084 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:258    .text.startup.main:0000000000000084 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:259    .text.startup.main:0000000000000084 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:264    .text.startup.main:0000000000000090 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:266    .text.startup.main:0000000000000094 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:267    .text.startup.main:0000000000000094 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:271    .text.startup.main:000000000000009e .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:273    .text.startup.main:00000000000000a2 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:277    .text.startup.main:00000000000000ac .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:280    .text.startup.main:00000000000000ae .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:282    .text.startup.main:00000000000000b0 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:284    .text.startup.main:00000000000000b4 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:287    .text.startup.main:00000000000000b8 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:289    .text.startup.main:00000000000000ba .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:291    .text.startup.main:00000000000000be .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:293    .text.startup.main:00000000000000c2 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:295    .text.startup.main:00000000000000c2 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:296    .text.startup.main:00000000000000c2 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:299    .text.startup.main:00000000000000ca .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:300    .text.startup.main:00000000000000ca .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:302    .text.startup.main:00000000000000ce .L0 
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s 			page 13
+
+
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:308    .text.startup.main:00000000000000dc .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:310    .text.startup.main:00000000000000dc .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:311    .text.startup.main:00000000000000dc .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:317    .text.startup.main:00000000000000e0 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:318    .text.startup.main:00000000000000e0 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:320    .text.startup.main:00000000000000e4 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:323    .text.startup.main:00000000000000ea .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:325    .text.startup.main:00000000000000ee .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:327    .text.startup.main:00000000000000f2 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:329    .text.startup.main:00000000000000f6 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:331    .text.startup.main:00000000000000fa .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:333    .text.startup.main:00000000000000fc .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:335    .text.startup.main:00000000000000fe .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:340    .text.startup.main:000000000000010a .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:348    .text.startup.main:0000000000000122 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:352    .text.startup.main:000000000000012c .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:355    .text.startup.main:0000000000000130 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:359    .text.startup.main:000000000000013a .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:360    .text.startup.main:000000000000013a .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:364    .text.startup.main:000000000000013c .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:369    .text.startup.main:000000000000014a .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:163    .text.delay_01us:00000000000000ce .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:372    .text.startup.main:000000000000014a .L0 
+                     .debug_frame:0000000000000000 .L0 
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:374    .rodata.delay_01us.cst8:0000000000000000 .LC0
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:72     .text.delay_01us:000000000000003a .L3
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:60     .text.delay_01us:0000000000000026 .L2
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:79     .text.delay_01us:000000000000004a .L4
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:223    .text.startup.main:0000000000000058 .L9
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:254    .text.startup.main:0000000000000084 .L10
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:362    .text.startup.main:000000000000013c .L11
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:314    .text.startup.main:00000000000000e0 .L12
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:2256   .debug_abbrev:0000000000000000 .Ldebug_abbrev0
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3293   .debug_str:0000000000000370 .LASF148
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3275   .debug_str:000000000000030e .LASF149
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3141   .debug_str:000000000000001c .LASF150
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3111   .debug_ranges:0000000000000000 .Ldebug_ranges0
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3133   .debug_line:0000000000000000 .Ldebug_line0
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3379   .debug_str:000000000000056c .LASF0
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3187   .debug_str:000000000000015d .LASF1
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3153   .debug_str:000000000000008e .LASF6
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3395   .debug_str:00000000000005be .LASF2
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3139   .debug_str:0000000000000012 .LASF3
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3225   .debug_str:0000000000000213 .LASF4
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3161   .debug_str:00000000000000ba .LASF5
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3229   .debug_str:000000000000022b .LASF7
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3253   .debug_str:000000000000029c .LASF8
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3217   .debug_str:00000000000001de .LASF9
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3307   .debug_str:0000000000000426 .LASF10
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3169   .debug_str:00000000000000ee .LASF11
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3381   .debug_str:0000000000000579 .LASF12
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3405   .debug_str:00000000000005f7 .LASF13
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3151   .debug_str:0000000000000085 .LASF14
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3247   .debug_str:000000000000027c .LASF125
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3315   .debug_str:0000000000000458 .LASF15
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3369   .debug_str:0000000000000545 .LASF16
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3305   .debug_str:000000000000041f .LASF17
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s 			page 14
+
+
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3183   .debug_str:000000000000014f .LASF18
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3367   .debug_str:000000000000053d .LASF19
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3415   .debug_str:0000000000000628 .LASF20
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3273   .debug_str:0000000000000308 .LASF21
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3245   .debug_str:0000000000000275 .LASF22
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3357   .debug_str:0000000000000518 .LASF23
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3359   .debug_str:0000000000000520 .LASF24
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3311   .debug_str:000000000000043b .LASF25
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3399   .debug_str:00000000000005d1 .LASF26
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3313   .debug_str:0000000000000446 .LASF27
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3325   .debug_str:0000000000000485 .LASF28
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3237   .debug_str:0000000000000250 .LASF33
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3385   .debug_str:0000000000000589 .LASF29
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3351   .debug_str:0000000000000503 .LASF30
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3231   .debug_str:0000000000000236 .LASF31
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3411   .debug_str:000000000000061d .LASF32
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3241   .debug_str:000000000000025e .LASF34
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3181   .debug_str:0000000000000146 .LASF35
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3433   .debug_str:000000000000067c .LASF36
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3193   .debug_str:0000000000000175 .LASF37
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3445   .debug_str:00000000000006ab .LASF38
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3295   .debug_str:00000000000003ea .LASF39
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3285   .debug_str:0000000000000344 .LASF40
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3363   .debug_str:000000000000052e .LASF41
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3327   .debug_str:000000000000048e .LASF42
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3427   .debug_str:000000000000065d .LASF43
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3197   .debug_str:0000000000000184 .LASF44
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3143   .debug_str:0000000000000064 .LASF45
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3135   .debug_str:0000000000000000 .LASF46
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3391   .debug_str:00000000000005a8 .LASF47
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3211   .debug_str:00000000000001c5 .LASF48
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3297   .debug_str:00000000000003f3 .LASF49
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3259   .debug_str:00000000000002ca .LASF50
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3227   .debug_str:0000000000000226 .LASF51
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3329   .debug_str:0000000000000498 .LASF52
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3191   .debug_str:000000000000016f .LASF53
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3377   .debug_str:0000000000000566 .LASF54
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3335   .debug_str:00000000000004ae .LASF55
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3209   .debug_str:00000000000001be .LASF56
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3255   .debug_str:00000000000002ae .LASF57
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3171   .debug_str:0000000000000105 .LASF58
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3199   .debug_str:0000000000000192 .LASF59
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3239   .debug_str:0000000000000258 .LASF60
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3283   .debug_str:000000000000033d .LASF61
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3361   .debug_str:0000000000000528 .LASF62
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3185   .debug_str:0000000000000156 .LASF63
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3189   .debug_str:0000000000000169 .LASF64
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3423   .debug_str:000000000000064f .LASF65
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3375   .debug_str:000000000000055d .LASF66
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3219   .debug_str:00000000000001ec .LASF67
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3261   .debug_str:00000000000002cf .LASF68
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3279   .debug_str:0000000000000331 .LASF69
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3337   .debug_str:00000000000004b6 .LASF70
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3331   .debug_str:000000000000049f .LASF71
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3353   .debug_str:000000000000050b .LASF72
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3371   .debug_str:0000000000000551 .LASF73
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3213   .debug_str:00000000000001cd .LASF74
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s 			page 15
+
+
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3249   .debug_str:000000000000028c .LASF75
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3235   .debug_str:0000000000000248 .LASF76
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3341   .debug_str:00000000000004cb .LASF77
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3149   .debug_str:000000000000007a .LASF78
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3349   .debug_str:00000000000004ea .LASF79
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3345   .debug_str:00000000000004d8 .LASF80
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3301   .debug_str:0000000000000405 .LASF81
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3347   .debug_str:00000000000004e0 .LASF82
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3271   .debug_str:0000000000000300 .LASF83
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3215   .debug_str:00000000000001d4 .LASF84
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3441   .debug_str:00000000000006a1 .LASF85
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3309   .debug_str:0000000000000431 .LASF86
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3251   .debug_str:0000000000000294 .LASF87
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3343   .debug_str:00000000000004d0 .LASF88
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3207   .debug_str:00000000000001b9 .LASF89
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3157   .debug_str:00000000000000a5 .LASF90
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3419   .debug_str:000000000000063b .LASF91
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3201   .debug_str:000000000000019a .LASF92
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3195   .debug_str:000000000000017f .LASF93
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3373   .debug_str:0000000000000558 .LASF94
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3333   .debug_str:00000000000004a7 .LASF95
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3413   .debug_str:0000000000000622 .LASF96
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3263   .debug_str:00000000000002d5 .LASF97
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3321   .debug_str:0000000000000476 .LASF98
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3145   .debug_str:000000000000006c .LASF99
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3355   .debug_str:0000000000000512 .LASF100
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3281   .debug_str:0000000000000337 .LASF101
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3397   .debug_str:00000000000005cc .LASF102
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3407   .debug_str:0000000000000600 .LASF103
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3387   .debug_str:000000000000058f .LASF104
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3269   .debug_str:00000000000002f3 .LASF105
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3429   .debug_str:0000000000000668 .LASF106
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3303   .debug_str:0000000000000410 .LASF107
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3265   .debug_str:00000000000002dc .LASF108
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3435   .debug_str:0000000000000685 .LASF109
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3317   .debug_str:000000000000045e .LASF110
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3439   .debug_str:0000000000000693 .LASF111
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3179   .debug_str:0000000000000138 .LASF112
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3417   .debug_str:0000000000000631 .LASF113
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3267   .debug_str:00000000000002e7 .LASF114
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3155   .debug_str:0000000000000098 .LASF115
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3223   .debug_str:0000000000000205 .LASF116
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3177   .debug_str:0000000000000129 .LASF117
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3221   .debug_str:00000000000001f4 .LASF118
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3163   .debug_str:00000000000000c3 .LASF119
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3165   .debug_str:00000000000000d2 .LASF120
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3323   .debug_str:000000000000047c .LASF121
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3291   .debug_str:0000000000000369 .LASF122
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3287   .debug_str:000000000000034e .LASF123
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3425   .debug_str:0000000000000655 .LASF124
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3175   .debug_str:000000000000011e .LASF151
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3233   .debug_str:000000000000023c .LASF126
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3403   .debug_str:00000000000005e4 .LASF127
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3299   .debug_str:00000000000003fb .LASF128
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3167   .debug_str:00000000000000e3 .LASF129
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3431   .debug_str:0000000000000677 .LASF130
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3365   .debug_str:0000000000000538 .LASF131
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s 			page 16
+
+
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3383   .debug_str:0000000000000581 .LASF132
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3147   .debug_str:0000000000000074 .LASF133
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3319   .debug_str:000000000000046b .LASF152
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:19     .text.delay_01us:0000000000000000 .LFB3
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:161    .text.delay_01us:00000000000000ce .LFE3
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:2976   .debug_loc:0000000000000000 .LLST0
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3137   .debug_str:000000000000000c .LASF153
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:2994   .debug_loc:000000000000002c .LLST1
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3389   .debug_str:000000000000059c .LASF134
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3012   .debug_loc:0000000000000058 .LLST2
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3159   .debug_str:00000000000000ae .LASF154
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3024   .debug_loc:0000000000000070 .LLST3
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:56     .text.delay_01us:0000000000000022 .LVL1
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:65     .text.delay_01us:000000000000002e .LVL3
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:84     .text.delay_01us:0000000000000052 .LVL6
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3443   .debug_str:00000000000006a6 .LASF155
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:168    .text.startup.main:0000000000000000 .LFB2
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:370    .text.startup.main:000000000000014a .LFE2
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3036   .debug_loc:0000000000000088 .LLST4
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3421   .debug_str:0000000000000645 .LASF135
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3049   .debug_loc:00000000000000a9 .LLST5
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3401   .debug_str:00000000000005d9 .LASF136
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3080   .debug_loc:00000000000000f7 .LLST6
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3088   .debug_loc:000000000000010b .LLST7
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:338    .text.startup.main:000000000000010a .LVL31
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:346    .text.startup.main:0000000000000122 .LVL32
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:350    .text.startup.main:000000000000012c .LVL33
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:201    .text.startup.main:0000000000000036 .LVL18
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:205    .text.startup.main:0000000000000040 .LVL19
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:208    .text.startup.main:0000000000000048 .LVL20
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:212    .text.startup.main:0000000000000052 .LVL21
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:262    .text.startup.main:0000000000000090 .LVL24
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:269    .text.startup.main:000000000000009e .LVL25
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:297    .text.startup.main:00000000000000ca .LVL28
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:305    .text.startup.main:00000000000000dc .LVL29
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:357    .text.startup.main:000000000000013a .LVL34
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:367    .text.startup.main:0000000000000148 .LVL36
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3173   .debug_str:000000000000010e .LASF137
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3243   .debug_str:0000000000000263 .LASF138
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3393   .debug_str:00000000000005b1 .LASF139
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3289   .debug_str:0000000000000357 .LASF140
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3409   .debug_str:000000000000060d .LASF141
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3339   .debug_str:00000000000004bf .LASF142
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3437   .debug_str:000000000000068a .LASF143
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3203   .debug_str:00000000000001a2 .LASF144
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3205   .debug_str:00000000000001ac .LASF145
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3257   .debug_str:00000000000002b4 .LASF146
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:3277   .debug_str:0000000000000315 .LASF147
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:28     .text.delay_01us:0000000000000002 .LCFI0
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:157    .text.delay_01us:00000000000000cc .LCFI1
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:23     .text.delay_01us:0000000000000000 .LVL0
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:151    .text.delay_01us:00000000000000c6 .LVL17
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:68     .text.delay_01us:0000000000000032 .LVL4
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:136    .text.delay_01us:00000000000000b8 .LVL16
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:59     .text.delay_01us:0000000000000026 .LVL2
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:76     .text.delay_01us:0000000000000042 .LVL5
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:174    .text.startup.main:0000000000000004 .LCFI2
+GAS LISTING C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s 			page 17
+
+
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:253    .text.startup.main:0000000000000084 .LVL23
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:278    .text.startup.main:00000000000000ae .LVL26
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:294    .text.startup.main:00000000000000c2 .LVL27
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:313    .text.startup.main:00000000000000e0 .LVL30
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:361    .text.startup.main:000000000000013c .LVL35
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:222    .text.startup.main:0000000000000058 .LVL22
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:395    .debug_info:0000000000000000 .Ldebug_info0
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:216    .text.startup.main:0000000000000052 .LBB2
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:219    .text.startup.main:0000000000000056 .LBE2
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:224    .text.startup.main:0000000000000058 .LBB3
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:234    .text.startup.main:0000000000000066 .LBE3
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:250    .text.startup.main:0000000000000080 .LBB4
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:255    .text.startup.main:0000000000000084 .LBE4
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:307    .text.startup.main:00000000000000dc .LBB5
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:309    .text.startup.main:00000000000000dc .LBE5
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:315    .text.startup.main:00000000000000e0 .LBB6
+C:\Users\elias\AppData\Local\Temp\ccw7dSSe.s:353    .text.startup.main:0000000000000130 .LBE6
+
+UNDEFINED SYMBOLS
+__floatundidf
+__floatunsidf
+__divdf3
+__muldf3
+__ltdf2
+get_timer_value
+SystemCoreClock
+ADC3powerUpInit
+Lcd_SetType
+Lcd_Init
+LCD_Clear
+adc_flag_get
+adc_regular_data_read
+fft
+cordic_hypotenuse
+LCD_DrawLine
+LCD_Wait_On_Queue
+adc_software_trigger_enable
